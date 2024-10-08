@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Human Practices</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> 
+<link rel="stylesheet" href="/2024_Edinburgh/css/style.css">
+<style>
+    .quotes-container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+    .quote-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 3rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s, transform 0.5s;
+    }
+    @media (min-width: 768px) {
+        .quote-item {
+            flex-direction: row;
+        }
+        .quote-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+    }
+    .quote-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .photo-box {
+        width: 100%;
+        max-width: 250px;
+        margin-bottom: 1rem;
+    }
+    @media (min-width: 768px) {
+        .photo-box {
+            width: 35%;
+            margin-bottom: 0;
+        }
+    }
+    .photo-container {
+        width: 100%;
+        padding-top: 100%; /* 1:1 Aspect Ratio */
+        position: relative;
+        perspective: 1000px;
+    }
+    .photo-flipper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+    .photo-container:hover .photo-flipper {
+        transform: rotateY(180deg);
+    }
+    .photo-front, .photo-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    .photo-container:hover .photo-front,
+    .photo-container:hover .photo-back {
+        box-shadow: 0 0 25px rgba(0, 150, 255, 0.8);
+    }
+    .photo-front::before, .photo-back::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+        z-index: -1;
+        filter: blur(15px);
+        background-size: 400%;
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 50%;
+    }
+    .photo-container:hover .photo-front::before,
+    .photo-container:hover .photo-back::before {
+        opacity: 1;
+    }
+    @keyframes glowing {
+        0% { background-position: 0 0; }
+        50% { background-position: 400% 0; }
+        100% { background-position: 0 0; }
+    }
+    .photo-back {
+        background-color: #F3F4F6;
+        transform: rotateY(180deg);
+        padding: 20px;
+        text-align: center;
+    }
+    .photo-back-content {
+        font-size: 0.9rem;
+        z-index: 1;
+    }
+    .photo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .photo-container::after {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,150,255,0.3) 0%, rgba(0,150,255,0) 70%);
+        z-index: -1;
+        animation: pulse 2s infinite;
+    }
+    .quotes-box {
+        width: 100%;
+        padding: 2.0rem;
+        background-color: #F3F4F6;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    @media (min-width: 768px) {
+        .quotes-box {
+            width: 65%;
+        }
+    }
+    .quotes-box.expanded {
+        width: 100%;
+        max-width: 800px;
+    }
+    .full-transcript {
+        display: none;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #ccc;
+    }
+    .full-transcript.visible {
+        display: block;
+    }
+    .expand-button {
+        display: block;
+        margin-top: 1rem;
+        text-align: center;
+        color: #3B82F6;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .quote-text {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s, transform 0.5s;
+    }
+    .quote-text.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .quote-author {
+        text-align: right;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-placeholder">
+        <img src= "/2024_Edinburgh/docs/img/logo.png">
+        </div>
+        <div class="nav-links">
+            <a href="/2024_Edinburgh/index.html">Home</a>
+            <div class="dropdown">
+                <span>Project</span>
+                <div class="dropdown-content">
+                    <a href="/2024_Edinburgh/docs/project/Description-project.html">Description</a>
+                    <a href="/2024_Edinburgh/docs/project/Results-project.html">Results</a>
+                    <a href="/2024_Edinburgh/docs/project/Workflow-project.html">Workflow</a>
+                    <a href="/2024_Edinburgh/docs/project/Supplementary.html">Methods</a>
+                </div>
+            </div>
+            <a href="/2024_Edinburgh/docs/Team/teampage.html">Team</a>
+            <a href="/2024_Edinburgh/docs/documentation/documentation.html">Documentation</a>
+            <a href="/2024_Edinburgh/docs/humanpractices/humanpractices.html">Human practices</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="quotes-container">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">Stakeholder Perspectives</h2>
+            <div id="quotes-list"></div>
+        </div>
+    </main>
+
+    <footer class="end-section">
+        <div class="location-container">
+            <h2 class="map-header">Our Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.3080769841813!2d-3.177915484069889!3d55.92155432744188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c7619777d9b7%3A0xfc241ebbe5c7a678!2sPeter%20Wilson%20Building%2C%20W%20Mains%20Rd%2C%20Edinburgh%20EH9%203JG%2C%20UK!5e0!3m2!1sen!2sus!4v1692648542208!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="supporters-container">
+            <h2 class="supporters-header">Our Supporters</h2>
+            <img src="/2024_Edinburgh/docs/img/Oursupporters-removebg-preview.png" alt="Our Supporters" class="funders-image">
+        </div>
+    </footer>
+
+   <script>
+        const quotes = [
+            { 
+                id: 1, 
+                author: "Matt Edmundson", 
+                photo: "/2024_Edinburgh/docs/img/mattedmundson.jpg",
+                info: "Matt is a member of the Sadler lab at the university of Edinburgh and is currently working on developing a method to convert plastic bottles into high value aromatic compounds such as vanillin. ",
+                quotes: [
+                    "The importance of a robust assay.",
+                    "The considerations when scaling up a project"
+                ],
+                fullTranscript: "When we introduced our project to him, he raised a concern about our screening assay and asked us if we thought crystal violet staining was quantifiable enough. \nTo address this concern, we have spent a considerable amount of time perfecting our biofilm assay and crystal violet staining on our wild type strain, either with the Curli plasmid, Ag43 plasmid or neither to ensure that we have reliable results when we do the assay on our libraries. \nWe then asked Matt if he thought there was any way our project could be misused if successful and he mentioned that the only thing he could think of would be our E. coli strains being used to foul equipment. \nWe also asked about ethical concerns, of which he couldn't think of any. \nWhen talking about the possibility of scaling up our project, Matt told us about Edinburgh Innovations, a commercialisation service for the University of Edinburgh that helps research groups go into industry. \nHe also brought up the idea that, as going into industry adds a monetary focus to the project, projects need to be adapted in different ways to make them cost-effective and applicable to the real world."
+            },
+            { 
+                id: 2, 
+                author: "Ella Thornton", 
+                photo: "/2024_Edinburgh/docs/img/ella.jpeg",
+                info: "Ella is a postdoc working on directed evolution of a protease in Nadanai laohakunakorn's lab as part of the Edinburgh University Institute of Quantitative Biology, Biochemistry and Biotechnology. Her project involves only mutating a few residues in the protease's binding site.",
+                quotes: [
+                    "The inevitability and importance of troubleshooting",
+                    "Picking the most appropriate mutagenesis method"
+                ],
+                fullTranscript: "We discussed how she had had problems with her project because she realised that she had contamination in her DNA sequence. In this, we gained insight into the importance and inevitability of troubleshooting, and not to be disheartened but to keep learning and evolving your project.  She also mentioned the importance of having an uncomplicated reliable screen for our project. Moreover, she described a machine learning technique called fTMLDE for screening where only a minimal ratio of samples in the library needed to be assayed and sequenced. \nWe also described the issues we were having with mutagenesis with the Ag43 cleavage site and she suggested a technique called QuickChange PCR, which we later ordered primers for and attempted to implement. This highlighted the importance of tailoring our chosen mutagenesis method to suit our target site. For example, the cleavage site library consists only of two codons and we need only disrupt cleavage, thus almost any mutation at either site should be sufficient. \nWhen asking her about the practicalities of our project if it were upscaled, she advised us to consider the time and cost of our project on a larger scale. For example, we would need to consider what conditions are necessary for the bacteria and the PETase enzyme, and, even if we improved efficiency of the PETase enzyme by enhancing adhesion, would the time scale for breakdown be practical in the real world? \nOverall she agreed with us that our project doesn't have any ethical or social concerns for the wider public. "
+            },
+            { 
+                id: 3, 
+                author: "Benjamin Armijo Galdames ", 
+                photo: "/2024_Edinburgh/docs/img/benjamin.jpeg",
+                info: "Benjamin is a PhD student in the Sadler lab who is focusing on the development of new technologies to upcycle plastic materials ",
+                quotes: [
+                    "Controls and defining a threshold for 'improved mutants' ",
+                    "The application of our project in real-world plastic degradation",
+                ],
+                fullTranscript: "As with many of our interviews, Benjamin brought up the importance of the screening process at the end of our project as he said it was the most crucial part. He asked about our controls especially, and suggested that as well as the wild type strain with either the Curli or Ag43 plasmid, we should have a control with an empty vector in it as well with the same ampicillin resistance for selection. We have since implemented this into our assay. \nRelated to this, he also mentioned the idea of picking a threshold value for our screen, whereby we only select those clones that go above this value. The threshold value would be determined by the controls. This will give us a small number of good clones to work with, which will be more time effective for the scope of our project. \nWe also spoke to Benjamin about the Fast and Flexible Synthesis of Combinatorial Libraries protocol and the problems that we were experiencing with it at the time as he said he had also used this before. He said from his experience of it, it is a very effective method once the PCR conditions are all perfected for each mutagenic primer and suggested that if we only had a small amount of megaprimer from the asymmetric PCR step, we can always PCR that up to get higher concentrations for the preparation of full length genes. \nWhen we asked Benjamin about if any communities would be negatively affected if our project was successful, he said the only one he could think of would be those who are currently working on a similar project but this typical of all research so is not a concern. \nBenjamin gave us lots of useful advice when we spoke to him about scaling up biotechnologies. He said when thinking about our project we need to be aware that we are only evolving the outer membrane proteins to stick to polystyrene, when in the real world plastics come in all different shapes, sizes and materials and can have different coatings and additives which provides a potential limitation to our project. Unfortunately we aren’t able to properly address this within the timescale and scope of our project but we hope that the data we produce can contribute to another group looking into this in the future.  He also described the different routes you can take once you have a potentially successful biotechnology in the lab. There is the possibility to publish this technology, but this comes at the cost of not being able to patent it. Alternatively you could patent it and make it into a business, which could bring monetary profit but running a business would become an intense full-time job.",
+            },
+            ];
+
+        function createQuoteElement(quoteData) {
+            const quoteItem = document.createElement('div');
+            quoteItem.className = 'quote-item';
+            
+            const quotesHtml = quoteData.quotes.map(quote => `
+                <p class="quote-text">"${quote}"</p>
+            `).join('');
+
+            quoteItem.innerHTML = `
+                <div class="photo-box">
+                    <div class="photo-container">
+                        <div class="photo-flipper">
+                            <div class="photo-front">
+                                <div class="photo-glow"></div>
+                                <img src="${quoteData.photo}" alt="${quoteData.author}" class="photo-img">
+                            </div>
+                            <div class="photo-back">
+                                <div class="photo-back-content">
+                                    <h3>${quoteData.author}</h3>
+                                    <p>${quoteData.info}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quotes-box">
+                    ${quotesHtml}
+                    <p class="quote-author">- ${quoteData.author}</p>
+                    <div class="full-transcript">
+                        <h3>Full Interview Transcript</h3>
+                        <p>${quoteData.fullTranscript}</p>
+                    </div>
+                    <span class="expand-button">Click to expand</span>
+                </div>
+            `;
+
+            const quotesBox = quoteItem.querySelector('.quotes-box');
+            const fullTranscript = quoteItem.querySelector('.full-transcript');
+            const expandButton = quoteItem.querySelector('.expand-button');
+
+            quotesBox.addEventListener('click', () => {
+                quotesBox.classList.toggle('expanded');
+                fullTranscript.classList.toggle('visible');
+                expandButton.textContent = fullTranscript.classList.contains('visible') ? 'Click to collapse' : 'Click to expand';
+            });
+
+            return quoteItem;
+        }
+
+        function animateQuotes() {
+            const quotesList = document.getElementById('quotes-list');
+            quotes.forEach(quoteData => {
+                const quoteElement = createQuoteElement(quoteData);
+                quotesList.appendChild(quoteElement);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        entry.target.querySelectorAll('.quote-text').forEach((quote, index) => {
+                            setTimeout(() => {
+                                quote.classList.add('visible');
+                            }, index * 300);
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.quote-item').forEach(item => {
+                observer.observe(item);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', animateQuotes);
+    </script>
+</body>
+</html>
+            

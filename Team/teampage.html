@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edinburgh IDEC 2024 Team</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/2024_Edinburgh/css/style.css">
+    <style>
+        h3, h4 {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 35px;
+            text-decoration: underline 2px black;
+        }
+
+        h4 {
+            font-size: 30px;
+        }
+
+        #container, #advisor-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto 20px;
+            padding: 20px;
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 5px rgba(135, 76, 204, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(135, 76, 204, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(135, 76, 204, 0.5); }
+        }
+
+        .team-member, .advisor {
+            width: 300px;
+            height: 300px;
+            border: 5px solid #874ccc;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            background-color: white;
+            animation: glowPulse 3s infinite;
+        }
+
+        .team-member:hover, .advisor:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(135, 76, 204, 0.4);
+        }
+
+        .team-member img, .advisor img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .team-member:hover img, .advisor:hover img {
+            opacity: 0;
+        }
+
+        .member-info, .advisor-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .team-member:hover .member-info, .advisor:hover .advisor-info {
+            opacity: 1;
+        }
+
+        .name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .bio {
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 1000px) {
+            #container, #advisor-container {
+                max-width: 660px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            #container, #advisor-container {
+                max-width: 320px;
+            }
+
+            .team-member, .advisor {
+                width: 100%;
+                height: 300px;
+            }
+        }
+                #intro {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-bottom: solid 5px;
+        }
+
+        .introphoto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    opacity: 0.9;
+}
+
+        .intro-text {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            opacity: 0;
+            animation: slideIn 1s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -30%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        #main-content {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-placeholder">
+        <img src= "/2024_Edinburgh/docs/img/logo.png">
+        </div>
+        <div class="nav-links">
+            <a href="/2024_Edinburgh/index.html">Home</a>
+            <div class="dropdown">
+                <span>Project</span>
+                <div class="dropdown-content">
+                    <a href="/2024_Edinburgh/docs/project/Description-project.html">Description</a>
+                    <a href="/2024_Edinburgh/docs/project/Results-project.html">Results</a>
+                    <a href="/2024_Edinburgh/docs/project/Workflow-project.html">Workflow</a>
+                    <a href="/2024_Edinburgh/docs/project/Supplementary.html">Methods</a>
+                </div>
+            </div>
+            <a href="/2024_Edinburgh/docs/Team/teampage.html">Team</a>
+            <a href="/2024_Edinburgh/docs/documentation/documentation.html">Documentation</a>
+            <a href="/2024_Edinburgh/docs/humanpractices/humanpractices.html">Human practices</a>
+        </div>
+    </nav>
+    <div id="intro">
+        <img src="/2024_Edinburgh/docs/img/teamphoto.jpg" alt="Team photo" class="introphoto">
+        <div class="intro-text">Meet the team</div>
+    </div>
+<h3>The Team</h3>
+
+    <div id="container">
+        <div class="team-member">
+            <img src="/2024_Edinburgh/docs/img/sian.jpg" alt="Sian Boothman">
+            <div class="member-info">
+                <div class="name">Sian Boothman (she/her)</div>
+                <div class="bio">4th year Molecular Genetics student. In my spare time, I enjoy knitting and playing the flute for the Edinburgh University wind band.</div>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="/2024_Edinburgh/docs/img/maddie.jpg" alt="Maddie Halil">
+            <div class="member-info">
+                <div class="name">Maddie Halil (she/her)</div>
+                <div class="bio">Maddie is a Biochemistry undergraduate (Hons) looking to pursue a career in research for a more sustainable world. Outside of academia, Maddie’s a keen ceramicist who regularly practices yoga. In her free time, she organises as part of charity and activism work centred around young people’s well-being and LGBTQ+ liberation</div>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="/2024_Edinburgh/docs/img/wesley.jpg" alt="Wesley Koc">
+            <div class="member-info">
+                <div class="name">Wesley Koc (he/him)</div>
+                <div class="bio">Hi, I study Biotechnology and am in my 4th year. My interests lie in Stem cells, regeneration, and genetic modification. My hobbies are reading sci-fi and fantasy books. </div>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="/2024_Edinburgh/docs/img/Maxi.jpg" alt="Maximilian Lanz">
+            <div class="member-info">
+                <div class="name">Maximilian Lanz (he/him)</div>
+                <div class="bio">I am a 4th-year Biotechnology (Hons) student with a keen interest in Regenerative Medicine. Outside of my academic focus, I enjoy tennis, running, skiing, and playing both the violin and piano. </div>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="/2024_Edinburgh/docs/img/alistair.jpg" alt="Alistair Rice">
+            <div class="member-info">
+                <div class="name">Alistair Rice (he/him)</div>
+                <div class="bio">Hey my name's Alistair Rice, I'm a 4th-year biotechnology student at the University of Edinburgh. In my free time, I enjoy playing the piano, reading, and going on walks.</div>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="/2024_Edinburgh/docs/img/sid.jpg" alt="Siddharth Sethia">
+            <div class="member-info">
+                <div class="name">Siddharth Sethia (he/him)</div>
+                <div class="bio">Hello, I am a 4th-year Immunology student with an interest in Immunotherapy, particularly T-cell-based therapies (especially the recently developed STAR T-cells). In my free time, I enjoy reading papers on the latest developments in Biology, engaging in scientific discourse on Twitter, having jam sessions with friends, and playing football (I am a goalkeeper and occasionally play as a centre-back)</div>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="/2024_Edinburgh/docs/img/yurika.jpg" alt="Yurika Uemura">
+            <div class="member-info">
+                <div class="name">Yurika Uemura (she/her)</div>
+                <div class="bio">I’m currently a fourth-year veterinary student. I’m interested in biomedical sciences, particularly infectious diseases, oncology treatments, and stem cell research. I would like to pursue a career as both a clinician and a researcher, combining my interests. Outside of academics, I enjoy playing sports such as skiing and tennis, and I do a bit of climbing and scuba diving. In my free time, I like reading books especially fiction, and I’m also trying to get into crocheting!</div>
+            </div>
+        </div>
+    </div>
+
+    <h4>Our Advisors</h4>
+
+    <div id="advisor-container">
+        <div class="advisor">
+            <div class="advisor-info">
+                <div class="name">Dr Heather Barker</div>
+                <div class="bio">Dr Heather Barker helped with nearly every aspect of this project, our work would be impossible without her. She supported our lab operations, assisted with planning experiments, and helped us troubleshoot.</div>
+            </div>
+        </div>
+        <div class="advisor">
+            <img src="/2024_Edinburgh/docs/img/sadler.jpg" alt="Dr Joanna Sadler">
+            <div class="advisor-info">
+                <div class="name">Dr Joanna Sadler</div>
+                <div class="bio">Joanna has a background in organic and bioorganic chemistry, directed evolution and microbial. Her present research focus it the development of new bio-based processes to degrade and upcycle waste plastic into useful chemicals. This includes enzyme discovery, directed evolution, pathway engineering and optimisation and developing novel enzyme display methods.</div>
+            </div>
+        </div>
+        <div class="advisor">
+            <img src="/2024_Edinburgh/docs/img/nadanai.jpg" alt="Dr Nadanai Loahakunakorn">
+            <div class="advisor-info">
+                <div class="name">Dr Nadanai Loahakunakorn</div>
+                <div class="bio">Dr Nadanai Laohakunakorn, originally from Bangkok, started off his career working on nanopores and single-molecule biophysics, before carrying out a postdoc in the new and growing field of cell-free synthetic biology. In 2019 he received a Chancellor's Fellowship in Biotechnology to start his own lab at the University of Edinburgh, and in 2021 he received a UKRI Future Leaders Fellowship to study the bottom-up construction of biomolecular systems through cell-free protein synthesis.</div>
+            </div>
+        </div>
+        <div class="advisor">
+            <img src="/2024_Edinburgh/docs/img/chrisfrench.jpg" alt="Professor Chris French">
+            <div class="advisor-info">
+                <div class="name">Professor Chris French</div>
+                <div class="bio">I am a Professor of Microbial Biotechnology in the School of Biological Sciences, University of Edinburgh. I originally trained as a bioprocess engineer in New Zealand before doing a Ph.D. in biocatalysis. My research interests include enzymatic biomass processing, DNA assembly, biosensors and biological computation. I have been involved with Edinburgh's iGEM teams since 2006 and with IDEC since its inception in 2021.</div>
+            </div>
+        </div>
+    </div>
+<footer class="end-section">
+        <div class="location-container">
+            <h2 class="map-header">Our Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.3080769841813!2d-3.177915484069889!3d55.92155432744188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c7619777d9b7%3A0xfc241ebbe5c7a678!2sPeter%20Wilson%20Building%2C%20W%20Mains%20Rd%2C%20Edinburgh%20EH9%203JG%2C%20UK!5e0!3m2!1sen!2sus!4v1692648542208!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="supporters-container">
+            <h2 class="supporters-header">Our Supporters</h2>
+            <img src="/2024_Edinburgh/docs/img/Oursupporters-removebg-preview.png" alt="Our Supporters" class="funders-image">
+        </div>
+</footer>
+    
+</body>
+</html>

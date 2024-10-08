@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Methods</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> 
+    <link rel="stylesheet" href="/2024_Edinburgh/css/style.css">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
+        
+        @keyframes moveArm {
+            0% { transform: rotate(45deg) translateY(0); opacity: 1; }
+            50% { transform: rotate(0deg) translateY(0); opacity: 1; }
+            100% { transform: rotate(0deg) translateY(0); opacity: 0; }
+        }
+        @keyframes ejectDrop {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { transform: translateY(0) scale(1); opacity: 0; }
+            75% { transform: translateY(100px) scale(1); opacity: 1; }
+            100% { transform: translateY(100px) scale(20); opacity: 0; }
+        }
+        @keyframes showText {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .arm { animation: moveArm 4s forwards; }
+        .drop { animation: ejectDrop 4s forwards; }
+        .method-text { 
+            animation: showText 1s forwards; 
+            animation-delay: 3s; 
+            opacity: 0; 
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+            font-size: 4.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-placeholder">
+        <img src= "/2024_Edinburgh/docs/img/logo.png">
+        </div>
+        <div class="nav-links">
+            <a href="/2024_Edinburgh/index.html">Home</a>
+            <div class="dropdown">
+                <span>Project</span>
+                <div class="dropdown-content">
+                    <a href="/2024_Edinburgh/docs/project/Description-project.html">Description</a>
+                    <a href="/2024_Edinburgh/docs/project/Results-project.html">Results</a>
+                    <a href="/2024_Edinburgh/docs/project/Workflow-project.html">Workflow</a>
+                    <a href="/2024_Edinburgh/docs/project/Supplementary.html">Methods</a>
+                </div>
+            </div>
+            <a href="/2024_Edinburgh/docs/Team/teampage.html">Team</a>
+            <a href="/2024_Edinburgh/docs/documentation/documentation.html">Documentation</a>
+            <a href="/2024_Edinburgh/docs/humanpractices/humanpractices.html">Human practices</a>
+        </div>
+    </nav>   
+
+    <div id="methods-content"></div>
+
+    <footer class="end-section">
+        <div class="location-container">
+            <h2 class="map-header">Our Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.3080769841813!2d-3.177915484069889!3d55.92155432744188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c7619777d9b7%3A0xfc241ebbe5c7a678!2sPeter%20Wilson%20Building%2C%20W%20Mains%20Rd%2C%20Edinburgh%20EH9%203JG%2C%20UK!5e0!3m2!1sen!2sus!4v1692648542208!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="supporters-container">
+            <h2 class="supporters-header">Our Supporters</h2>
+            <img src="/2024_Edinburgh/docs/img/Oursupporters-removebg-preview.png" alt="Our Supporters" class="funders-image">
+        </div>
+    </footer>
+
+    <script type="text/babel">
+        const PipetteAnimation = () => (
+            <div className="h-screen flex justify-center items-center relative overflow-hidden">
+                <video className="video-background" autoPlay loop muted>
+                    <source src="/2024_Edinburgh/docs/videos/Edinburgh Genome Foundry Video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 bg-black opacity-50"></div>
+                <svg width="300" height="500" viewBox="0 0 300 500" className="relative z-10">
+                    <g className="arm" transform-origin="150 150">
+                        <rect x="140" y="50" width="20" height="150" fill="#FFFFFF"/>
+                        <rect x="130" y="190" width="40" height="60" fill="#000000" />
+                        <rect x="145" y="250" width="10" height="30" fill="#999" />
+                    </g>
+                    <circle className="drop" cx="150" cy="280" r="7" fill="blue" />
+                </svg>
+                <h1 className="method-text absolute z-10" style={{ top: '40%' }}>Our Methods</h1>
+            </div>
+        );
+
+        const MethodBox = ({ title, description, imageUrl }) => {
+            const [isOpen, setIsOpen] = React.useState(false);
+
+            return (
+                <div 
+                    className="bg-white p-6 rounded-lg shadow-lg cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105"
+                    onClick={() => setIsOpen(!isOpen)}
+                    style={{ height: isOpen ? 'auto' : '400px' }}
+                >
+                    <h2 className="text-2xl font-semibold mb-4 text-center">{title}</h2>
+                    <img src={imageUrl} alt={title} className="w-full h-64 object-cover mb-4 rounded" />
+                    {isOpen && <div dangerouslySetInnerHTML={{ __html: description }} className="text-lg" />}
+                </div>
+            );
+        };
+
+        const MethodsContent = () => {
+            const methods = [
+                { 
+                    title: "Q5 Standard PCR (click to expand)", 
+                    description: `The PCR reactions were set up following the NEB Q5® High-Fidelity DNA Polymerase (M0491) standard PCR protocol. <br><br>
+                    For a 50µL reaction the following is needed:<br><br>
+                    - 10µL of 5X Q5 Reaction Buffer<br>
+                    - 1µL of 10mM dNTPs<br>
+                    - 2.5µL of 10µM Forward Primer<br>
+                    - 2.5µL of 10µM Reverse Primer<br>
+                    - 1µL of Template DNA<br>
+                    - 0.5µL of Q5 High-Fidelity DNA Polymerase<br>
+                    - 32.5µL of Nuclease-free water<br><br>
+                    The PCR conditions were as follows:<br>
+                    1. Initial denaturation: 98°C for 30 seconds<br>
+                    2. 25 cycles of:<br>
+                       - Denaturation: 98°C for 10 seconds<br>
+                       - Annealing: 50-72°C for 30 seconds<br>
+                       - Extension: 72°C for 30 seconds/kb<br>
+                    3. Final extension: 72°C for 2 minutes<br>
+                    4. Hold at 4°C`,
+                    imageUrl: "/2024_Edinburgh/docs/img/Q5.jpeg" 
+                },
+                { 
+                    title: "Q5 Megaprimer PCR", 
+                    description: `Asymmetric PCR was performed following the NEB Q5® High-Fidelity DNA Polymerase (M0491) standard PCR protocol, with the exception of primer concentrations.The final concentrations for the mutagenic forward and non-mutagenic reverse primers were 25 nM and 500 nM respectively. An annealing temperature of 60 ℃  was set for 25 cycles and the final extension step was removed. For each mutagenic forward primer, a standard symmetric PCR was carried out simultaneously, as a positive control. The single-stranded megaprimer products were subjected to a DpnI digestion (protocol available) to remove the residual methylated template DNA. The megaprimer products were purified following the Promega Wizard® SV Gel and PCR Clean-Up System protocol, followed by an elution using 20 µL of DNase-free water.`,
+                    imageUrl: "/2024_Edinburgh/docs/img/megaprimer.png" 
+                },
+                { title: "Q5 Full-length gene PCR", 
+                 description: "To obtain a full-length gene product that incorporated the mutagenic codon, a forward primer for the gene and the megaprimer products as reverse primers, were used in a symmetric PCR. The full-length PCR was performed following the NEB Q5® High-Fidelity DNA Polymerase (M0491) standard PCR protocol, with the exception of the reverse megaprimers (the entirety of the megaprimers purified from the previous asymmetric PCR reaction, approximately 20 µL, was used). Additionally, the final reaction condition included 3% DMSO (1.5µL for a 50µL reaction). Due to the additional volumes of megaprimer and DMSO, the amount of Nuclease-free water added is adjusted.<br><br>An annealing temperature of  60 ℃ was used. The positive control for this PCR was a standard PCR, using a non-mutagenic reverse primer (at standard concentrations) for the appropriate gene. Following this, a Dpn1 digestion of the full-length PCR products was performed to minimise the carryover of template DNA. The products were purified using Wizard® SV Gel and PCR Clean-Up System and Nanodropped to measure the DNA concentration.", 
+                 imageUrl: "/2024_Edinburgh/docs/img/fulllength.png" },
+                
+                
+                { title: "Gibson Assembly", 
+                 description: "After full-length genes were synthesised, a Gibson Assembly was performed to clone each of the mutant gene products into the relevant vectors. Our genes and their respective vectors contained overlapping fragments, making Gibson Assembly a viable method for cloning. The reaction was set up as follows: <br><br> - 5µL of NEBuilder® HiFi DNA Assembly Master Mix <br> - 0.015 pmol of vector <br> - 0.085 pmol of gene <br> - Make up with Distilled Water to 10 µL <br><br> The Gibson reaction was then incubated in a PCR machine at 50 °C for 15 mins.", 
+                 imageUrl: "/2024_Edinburgh/docs/img/gibsonassembly.png" },
+                
+                { title: "Competent Cell preparation", 
+                 description: "1. Inoculate a single colony of appropriate cells into 10 ml LB and culture overnight at 37°C, 200rpm<br> 2. Inoculate 100ml LB with 1 ml of overnight culture <br> 3. Incubate at 37 °C, 200rpm until OD600 = 0.3-0.6 (approximately 2 hrs) <br> 4. Transfer to two 50 ml Falcon and leave on ice for 30 mins <br> 5. Centrifuge at 4000 x g for 5 minutes at 4 °C <br> 6. Gently resuspend pellet in 25 ml ice cold 0.1 M MgCl2 <br> 7. Incubate on ice for 30 min <br> 8. Centrifuge at 4000 x g for 5 min at 4 °C <br> 9. Gently resuspend pellet in 25 ml ice cold 0.1 M CaCl2 <br> 10. Incubate on ice for 30 minutes <br> 11. Centrifuge at 4000 x g for 5 minutes at 4 °C <br> 12. Gently resuspend pellet in 1.25 ml ice cold CaCl2/Glycerol solution (1.7 ml 0.1 M CaCl2, 0.3 ml 100 % glycerol) <br> 13. Aliquot 100ul and flash freeze on dry ice. Store at – 80 °C ", 
+                 imageUrl: "/2024_Edinburgh/docs/img/competentcells.png" },
+                
+                { title: "Transformation", 
+                 description: "1. Defrost competent cells on ice <br> 2. Add 1µL of plasmid DNA (or 10µL of ligation reaction) to 100µL of competent cells. The volume ratio of DNA:Cells should not exceed 10%, thus 10µL is the upper limit for transformation into 100µL of cells. <br> 3. Leave on ice for 30 minutes <br> 4. Heat shock at 42°C in a water bath for 45 seconds <br> 5. Return cells to ice for 2 minutes <br> 6. Add 950µL of SOC Media <br> 7. Incubate in a shaking incubator (200-300rpm) at 37°C for 1 hour <br> 8. Spin down cells and remove supernatant <br> 9. Resuspend cells in 100µL of SOC media and plate on ampicillin (100ng/mL) LB <br> 10. Incubate plate at 37°C overnight      ", 
+                 imageUrl: "/2024_Edinburgh/docs/img/transformation.png" },
+                
+                { title: "Crystal Violet Biofilm Assay", 
+                 description: "Day 1: Fill each well of a 96-well plate with 175 µL LB +  0.1% Ampicillin and inoculate with a single colony from LB agar plates (the ones containing transformed cells).In each plate wells D1, D3, and D6 contain a negative control. Conversely, wells E1, E3, and E6 contain cells with a non-mutant gene of interest as a positive control. On each plate H12 is left empty as a blank for the plate reader. Thus, each plate contain 89 mutant variants in total <br><br> Day 2: 173.25 µL M63 + 0.1% Ampicillin is added into each well of a fresh 96-well plate. This plate will serve as a day-culture plate. 1.75 µL of overnight culture (from the previous 96 well plate) is used to inoculate the corresponding well on the day culture plate and then incubated for 30 minutes in a shaking incubator (750rpm, 37ºC). 200 µL of M63 is used in well A1 as a blank and the OD600 is measured for each well both before and after incubation. Following incubation, all wells are induced using 4.375 µL of 10% arabinose solution and left to incubate for 18 hours (750 Rpm, 30 ºC). <br><br> Day 3 (Crystal Violet staining): The liquid is removed from the 96-well plate following the 18-hour incubation step. The empty wells are then washed gently 3x with 200 µL of water. Subsequently, 30 µL of crystal violet solution is added to each well  and left to stain for 30 minutes. The crystal violet is removed from each well and the wash step is performed as before, pipetting up and down 3x to remove any residual crystal violet. The plate is left until completely dry before resuspending the biofilm in 50 µL of 30% acetic acid. After 10 minutes, the absorbance (Abs550) is measured a final time", 
+                 imageUrl: "/2024_Edinburgh/docs/img/cvs.png" },
+                
+                { title: "DpnI Digest", 
+                 description: "Following all PCR reactions, 1µL of DpnI was added directly to the PCR reaction tube and incubated for 1 hour at 37°C to digest any residual methylated template DNA", 
+                 imageUrl: "/2024_Edinburgh/docs/img/DpnI.png" },
+                
+                { title: "Error-Prone PCR", 
+                 description: "Error-Prone PCR introduces random mutations across the gene of interest. EpPCR libraries were generated using the ‘Taq DNA Polymerase with Standard Taq Buffer’ protocol by NEB, with the exception of adding heavy metals solutions – MnCl2 and MgCl2 - in the final reaction mix at concentrations of 0.075 mM and 5 mM respectively – to act as mutagens. Forward and reverse primers for this were non-mutagenic and flanked the gene. An annealing temperature of 68  °C was used for 35 thermocycles.",
+                 imageUrl: "/2024_Edinburgh/docs/img/errorpronePCR.png" },  
+            ];
+
+            return (
+                <div>
+                    <PipetteAnimation />
+                    <div className="container mx-auto px-4 py-16">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                            {methods.map((method, index) => (
+                                <MethodBox key={index} title={method.title} description={method.description} imageUrl={method.imageUrl} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<MethodsContent />, document.getElementById('methods-content'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Results</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> 
+    <link rel="stylesheet" href="/2024_Edinburgh/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide-react/0.263.1/lucide-react.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+<style>
+      #intro {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-bottom: solid 5px;
+        }
+
+        .introphoto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    opacity: 0.9;
+}
+
+        .intro-text {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            opacity: 0;
+            animation: slideIn 1s ease-out forwards;
+            
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -30%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        } 
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-placeholder">
+        <img src= "/2024_Edinburgh/docs/img/logo.png">
+        </div>
+        <div class="nav-links">
+            <a href="/2024_Edinburgh/index.html">Home</a>
+            <div class="dropdown">
+                <span>Project</span>
+                <div class="dropdown-content">
+                    <a href="/2024_Edinburgh/docs/project/Description-project.html">Description</a>
+                    <a href="/2024_Edinburgh/docs/project/Results-project.html">Results</a>
+                    <a href="/2024_Edinburgh/docs/project/Workflow-project.html">Workflow</a>
+                    <a href="/2024_Edinburgh/docs/project/Supplementary.html">Methods</a>
+                </div>
+            </div>
+            <a href="/2024_Edinburgh/docs/Team/teampage.html">Team</a>
+            <a href="/2024_Edinburgh/docs/documentation/documentation.html">Documentation</a>
+            <a href="/2024_Edinburgh/docs/humanpractices/humanpractices.html">Human practices</a>
+        </div>
+    </nav>
+    <div id="intro">
+        <img src="/2024_Edinburgh/docs/img/bacteriasticking.png" alt="Arthurs seat" class="introphoto">
+        <div class="intro-text">Results</div>
+    </div>
+
+    <div id="results-root"></div>
+
+    <footer class="end-section">
+        <div class="location-container">
+            <h2 class="map-header">Our Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.3080769841813!2d-3.177915484069889!3d55.92155432744188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c7619777d9b7%3A0xfc241ebbe5c7a678!2sPeter%20Wilson%20Building%2C%20W%20Mains%20Rd%2C%20Edinburgh%20EH9%203JG%2C%20UK!5e0!3m2!1sen!2sus!4v1692648542208!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="supporters-container">
+            <h2 class="supporters-header">Our Supporters</h2>
+            <img src="/2024_Edinburgh/docs/img/Oursupporters-removebg-preview.png" alt="Our Supporters" class="funders-image">
+        </div>
+    </footer>
+
+    <script type="text/babel">
+        const { ChevronDown } = window.lucideReact || {};
+
+        const ResultsSection = () => {
+    const [activeSection, setActiveSection] = React.useState(null);
+            
+    const PlateControlTable = () => {
+  const data = [
+    { plate: 1, pValue: 0.00018, significant: 'Yes' },
+    { plate: 2, pValue: 0.01688, significant: 'Yes' },
+    { plate: 3, pValue: 0.04459, significant: 'Yes' },
+    { plate: 4, pValue: 0.00078, significant: 'Yes' },
+    { plate: 5, pValue: 0.00773, significant: 'Yes' },
+    { plate: 6, pValue: 0.12736, significant: 'No' },
+    { plate: 7, pValue: 0.11104, significant: 'No' },
+    { plate: 8, pValue: 0.03241, significant: 'Yes' },
+    { plate: 9, pValue: 0.01012, significant: 'Yes' },
+    { plate: 10, pValue: 0.31997, significant: 'No' },
+    { plate: 11, pValue: 0.08017, significant: 'No' },
+  ];
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white">
+        <thead className="bg-gray-800 text-white">
+          <tr>
+            <th className="py-2 px-4 text-left">Plate</th>
+            <th className="py-2 px-4 text-left">P-Value</th>
+            <th className="py-2 px-4 text-left">Significance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+              <td className="py-2 px-4">plate {row.plate}</td>
+              <td className="py-2 px-4">{row.pValue.toFixed(5)}</td>
+              <td className="py-2 px-4">{row.significant}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const StandardControlTable = () => {
+  const data = [
+    { wellNo: 'KO con', absorbance: 0.077067, stdDev: 0.002136, upper: 0.081339, lower: 0.072794 },
+    { wellNo: 'CsgA con', absorbance: 0.19205, stdDev: 0.026640, upper: 0.245329, lower: 0.138771 },
+  ];
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white">
+        <thead className="bg-gray-800 text-white">
+          <tr>
+            <th className="py-2 px-4 text-left">Well No.</th>
+            <th className="py-2 px-4 text-left">Absorbance (550nm)</th>
+            <th className="py-2 px-4 text-left">Standard Deviation*2</th>
+            <th className="py-2 px-4 text-left">Upper Error Bar</th>
+            <th className="py-2 px-4 text-left">Lower Error Bar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+              <td className="py-2 px-4">{row.wellNo}</td>
+              <td className="py-2 px-4">{row.absorbance.toFixed(6)}</td>
+              <td className="py-2 px-4">{row.stdDev.toFixed(6)}</td>
+              <td className="py-2 px-4">{row.upper.toFixed(6)}</td>
+              <td className="py-2 px-4">{row.lower.toFixed(6)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+    const sections = [
+        { 
+            id: '1.0', 
+            title: 'Computational Analysis and Site Selection for Mutagenesis',
+            content: (
+                <div className="space-y-6">
+                    <h3 className="text-2xl font-bold">1.0.1 Antigen 43</h3>
+                    <p>
+                        Ag43 undergoes an autocatalytic cleavage between the (α) passenger and (β) autochaperone domains (Vo et al., 2022). The beta-domain (β) stays embedded in the cell surface membrane, while the α-domain (α) is cleaved. The passenger (α) domain then associates with the β domain via non-covalent interactions (Figure 2.), and is responsible for the direct adhesion mechanism to abiotic surfaces. Meanwhile, the translocator domain (β) anchors the passenger (α) domain to the cell membrane. Therefore, we targeted the autocatalytic cleavage site as we hypothesised that inhibiting this cleavage could strengthen the association of the passenger domain with the cell surface by conserving the covalent interactions between the functional (α) and the membrane-embedded (β) domain.
+                    </p>
+                    <p>
+                        The specific cleavage site varies among Ag43 variants but localises between the β-helix and the predicted autochaperone (AC) domain (Vo et al., 2022). Potential cleavage sites were predicted based on sequence similarity between multiple strains of E. coli and ours, of which CFT073 was the most similar (Klemm et al., 2003). The predicted cleavage sites in CFT073 are between D500/P501 and D499/P500. We identified these residues within the expected region of pBAD-Ag43, specifically at D551/P552. This is the only instance of a D and P residue appearing consecutively within the entire amino acid residue sequence. As a result, we selected these sites for site-specific mutagenesis.
+                    </p>
+                    <p>
+                        Additionally, we identified several other sites on the passenger domain which could be targets for mutation using a Frustratometer analysis (Supplementary) and PyMol (The PyMOL Molecular Graphics System, Version 3.0 Schrödinger, LLC).
+                    </p>
+
+                    <h3 className="text-2xl font-bold mt-8">1.0.2 CsgA</h3>
+                    <p>
+                        For CsgA, 33 potential target sites were identified for site-specific mutagenesis (Figures 1, 2 and 3). These sites were selected by excluding those identified as crucial for structure or function. For instance, 'gatekeeper residues' found in R1-R5 were omitted as these are conserved and essential for native protein folding (Wang et al, 2009). Additionally, we excluded residues identified as being highly perturbed or immobile (DeBenedictis, Liu, and Keten, 2016). Highly perturbed residues confer a high degree of flexibility to the protein which are likely significant for binding to abiotic surfaces. Additionally, we hypothesised that immobile residues are important in maintaining structural integrity of the protein, thus, we also excluded these sites.
+                    </p>
+                    <p>
+                        Finally, we excluded residues from R1 and R5 as they have been implicated in directing CsgA's response to CsgB-mediated nucleation, and are therefore critical for the elongation of the Curli fibre. Additionally, previous data has suggested R1 and R5 are functionally redundant in mediating adhesion (Wang et al., 2009). This left us with 33 targets for megaprimer design, of which only 27 were considered due to time constraints.
+                    </p>
+                    <img src="/2024_Edinburgh/docs/img/fig1.1.png" alt="Figure1results" className="w-full mb-4 rounded-lg shadow-md"/>
+                    <img src="/2024_Edinburgh/docs/img/Figure2redone.png" alt="Figure1results" className="w-full mb-4 rounded-lg shadow-md"/>
+                    <img src="/2024_Edinburgh/docs/img/Figure3.png" alt="Figure1results" className="w-full mb-4 rounded-lg shadow-md"/>
+                </div>
+            )
+        },
+                { 
+                    id: '1.1', 
+            title: 'Amplification: CsgA gene, CsgA vector, Ag43 gene, Ag43 vector',
+            content: (
+                <div className="space-y-4">
+                    <p>
+                        CsgA and Ag43 vectors were amplified from the pBAD plasmids to be used for Gibson reactions at a later stage. Additionally, we amplified CsgA and Ag43 genes. These were used to confirm that the Gibson Assembly was working, as a positive control. The images of our gels can be found in the documentation. 
+                    </p>
+                </div>
+            )
+        },
+                { 
+            id: '1.2', 
+            title: 'CsgA Error-Prone PCR Results',
+            content: (
+                <div className="space-y-4">
+                    <p>
+                        Error-prone PCR (epPCR) is a common way to introduce mutations and can be quick and easy. Due to this, we decided to use this as our first approach. epPCR was performed based on the standard PCR protocol using Taq polymerase, by NEB labs, as stated in the methods section. We modified the protocol by replacing some of the water with MgCl<sub>2</sub> and MnCl<sub>2</sub> solutions at different concentrations.
+                    </p>
+                    <p>
+                        From the final concentrations of 7 mM MgCl<sub>2</sub> and 0.5 mM MnCl<sub>2</sub> in the PCR reaction, these concentrations were systematically reduced down to 5 mM MgCl<sub>2</sub> and 0.075 mM MnCl<sub>2</sub>. These specific final concentrations were chosen using standard PCR reactions with only either MgCl<sub>2</sub> or MnCl<sub>2</sub> added into the solution, reducing the concentrations until distinct bands of correct sizes were generated as shown in Figure 5.
+                    </p>
+                          <div className="mt-4">
+                        <img src="/2024_Edinburgh/docs/img/Figure5.png" alt="Error-prone PCR gel electrophoresis results" className="w-full mb-4 rounded-lg shadow-md" />
+                        <p className="text-sm text-gray-600"></p>
+                    </div>
+                    <p>
+                        Error-prone PCR successfully generated products at the correct size of 500 bp. All three were under the same PCR reaction and condition, however CsgA ep1 was removed at this stage as the band was smeared on the gel. The combined libraries of both ep2 and 3 were purified and sent for Sanger Sequencing to check the presence of mutations and to determine the mutation rate.
+                    </p>
+                    <p>
+                        Our Sanger sequencing results revealed that no mutations had been generated by epPCR. Therefore, we did not transform cells with our epPCR products.
+                    </p> 
+                </div>
+            )
+        },
+                
+                { 
+                    id: '1.3', 
+                    title: 'Amplification: CsgA and Ag43 Megaprimer Full-Length Results',
+                    content: (
+    <div className="space-y-4">
+        <h3 className="text-2xl font-bold">1.3.1 Ag43 Megaprimer Results</h3>
+        <p>
+            As described in Method 2.4.2, asymmetric PCR was attempted for the two Ag43 cleavage site residues (D551 and P552), using Q5 polymerase. This failed, as no bands were observed following gel electrophoresis. The protocol was repeated using staggered annealing temperatures (60-70 °C, at 2 °C intervals), however, this also failed. This may have been due to the primer pairs having Tm's that differed by >5°C (determined using the NEB Tm calculator), which is suboptimal.
+        </p>
+        <p>
+            Multiple factors were modified in an attempt to improve results such as different polymerase, temperature, addition of DMSO, using different ratios of forward:reverse primer and increasing PCR cycles. However, none of these produced any consistent bands following gel electrophoresis, so we moved onto inverse PCR.
+        </p>
+
+        <h3 className="text-2xl font-bold mt-6">1.3.2 CsgA Megaprimer Results</h3>
+        <p>
+            Despite our repeated failures in generating Ag43 megaprimers, we decided to attempt the same for CsgA due to its shorter length. CsgA megaprimers are ~300bp, while Ag43 megaprimers were ~1500bp which is at the upper limit (Sadler et al., 2018). A single primary band at 300 bp, which was the expected megaprimer size, shows the successful generation of megaprimers for sites 0, 2, 3, 4, 5, and 6 (Figure 6, sites represented by their respective amino acids). The gel images for the generation of other megaprimer sites can be found in the documentation. The size of the other megaprimers slowly decreased as the mutation site was further along the gene.
+        </p>
+        <div className="mt-4">
+            <img src="/2024_Edinburgh/docs/img/fig7correct.jpg" alt="Figure 6: CsgA Megaprimer Generation Results" className="w-full mb-4 rounded-lg shadow-md" />
+            <p className="text-sm text-gray-600"></p>
+        </div>
+
+        <h3 className="text-2xl font-bold mt-6">1.3.3 CsgA Gene Full-Length PCR Product Results</h3>
+        <p>
+            The first two attempts at generating a full-length CsgA product (using the megaprimers as reverse primers) failed. We believe this was due to the low amount of megaprimers put into the full-length PCR reaction. Therefore, all 16μL of megaprimers were added in repeated experiments with or without DMSO. On the fifth attempt, DMSO was only added at the stage of full-length PCR which is shown in the gel below (Figure 7). Full-length synthesis gels for other sites can be found in documentation.
+        </p>
+        <div className="mt-4">
+            <img src="/2024_Edinburgh/docs/img/fig7.2.png" alt="Figure 7: CsgA Full-Length PCR Product Results" className="w-full mb-4 rounded-lg shadow-md" />
+            <p className="text-sm text-gray-600"></p>
+        </div>
+        <p>
+            All lanes showed a primary band at ~400-500 bp. This confirms the successful production of full-length mutagenic CsgA genes. For the control, we used a non-mutagenic reverse and the standard forward primer. This confirmed that the mutagenic CsgA full-length gene products are at the correct size.
+        </p>
+
+        <h3 className="text-2xl font-bold mt-6">1.3.4 CsgA Sanger Sequencing Confirmation</h3>
+        <p>
+            6 CsgA mutants (I70, H73, G78, A79, V81, S85) were sent for Sanger sequencing to confirm that mutations were present. This is in the process of being done for other mutants, however, due to time constraints we were unable to display this data. The sequencing of the 6 mutants was done before conducting our Crystal Violet Biofilm assay. Ideally, sequencing results should only show varied peaks at the specific codon that the megaprimer targets, while the rest of the gene sequence is preserved.
+        </p>
+        <p>
+            G78 mutants were miniprepped from a heterogeneous culture which contained a library of different mutations for this specific site. Figure 8 shows multiple peaks for all three bases within the target G78 (highlighted in red), indicating that multiple amino acid substitutions had been generated. This suggests that the site-directed mutagenesis was successful for this mutant. Therefore, this data was sufficient to conclude that a mutagenic library had been generated.
+        </p>
+        <div className="mt-4">
+            <img src="/2024_Edinburgh/docs/img/Figure8.png" alt="Figure 8: CsgA Sanger Sequencing Results for G78 Mutants" className="w-full mb-4 rounded-lg shadow-md" />
+            <p className="text-sm text-gray-600"></p>
+        </div>
+    </div>
+)
+                },
+                
+                { 
+            id: '1.4', 
+            title: 'Ag43 Inverse PCR Results',
+            content: (
+                <div className="space-y-4">
+                    <p>
+                        After abandoning megaprimer synthesis for the Ag43 cleavage site, we moved onto using inverse PCR. With an annealing temperature of 70 ℃, the correct band for the D551 site was visualised, gel extracted and ligated using T4 ligase. However, we failed to get a product for P552 despite conducting many repeats. Therefore, we decided to exclude P552, as in theory, mutations in D551 would be sufficient for impeding cleavage.
+                    </p>
+                    <p>
+                        Unfortunately, although transformation of the recircularized plasmid carrying the D551 mutation into C2987 cells  was successful, transforming into the MG1655(DK) cells failed multiple times, and this couldn't be resolved. We suspect that the recircularization was unsuccessful to begin with, and could be missing regions of the plasmid, which is why it would not transform DK cells and we would see no growth on the ampicillin LB agar. Since time was quite 
+                    </p>
+                
+                </div>
+            )
+        },
+                { 
+            id: '1.5', 
+            title: 'Baseline Biofilm Comparison',
+            content: (
+                <div className="space-y-4">
+                    <p>
+                        We performed the assay protocol using the wild type MG1655 strain as a control, as well as MG1655 strain carrying either the pBAD-Curli or pBAD-Ag43 plasmid. On each plate half of the wells were induced for expression of the appropriate gene with arabinose, and the rest were non-induced.
+                    </p>
+                    <p>
+                        The first series of plates showed no change in absorbance. This was later revealed to be due to a failure in making up the M63 media correctly. The next series of plates showed gradients in absorbance, with the majority showing an increasing top-down gradient. This was corrected by switching to a different incubator, as we have hypothesized that the previous incubator was producing a temperature gradient.
+                    </p>
+                    <p>
+                        Following troubleshooting, reasonably consistent data was obtained for each strain, induced or non-induced. However, due to human error there were still variations within the plate. This was rectified by using the Edinburgh Genome Foundry (EGF), a research facility with an impressive highly automated robotic platform, who generously performed our assay with their robotic colony picker and acoustic dispenser. The EGF further modified our protocol for their equipment to prevent 'splashing' of solutions between wells.
+                    </p>
+                    <p>
+                        As shown in Figure 9, the improved protocol does obtain consistent results. To compare the induced and non-induced results, we conducted a student's t-test. This shows that the induction of Curli gives a very significant increase in biofilm formation, but this is not the case for Ag43. In light of these results, we decided to shift more focus to CsgA than Ag43.
+                    </p>
+                    <div className="mt-4">
+                        <img src="/2024_Edinburgh/docs/img/fig9.1.png" alt="Baseline Biofilm Comparison Results" className="w-full mb-4 rounded-lg shadow-md" />
+                        <p className="text-sm text-gray-600"></p>
+                    </div>
+                </div>
+            )
+        },
+                { 
+    id: '1.6', 
+    title: 'CsgA Biofilm Results',
+    content: (
+        <div className="space-y-4">
+            <h3 className="text-2xl font-bold">1.6.1 Which control to use</h3>
+            <p>
+                There are two ways to analyze these results: by comparing the biofilm formation of the mutants on a particular plate to the CsgA controls on the same plate, or by comparing the biofilm formation of all the mutants to a standard control.
+            </p>
+
+            <h3 className="text-2xl font-bold mt-6">1.6.2 Individual plate controls</h3>
+            <p>
+                Using the controls on each individual plate allows for the comparison of mutants across plates; by dividing the mutants with the control on their plates, this accounts for the differential conditions between plates. This is the most reliable control that we can use as it allows you to compare the increase in biofilm formation that each mutant gave across plates to identify the best mutants across the whole assay.
+            </p>
+            <p>
+                The flaw in this approach is that it requires the controls on each plate to work. For 18 of the plates, the positive control did not show a significant increase in biofilm formation when compared to the negative control (Table 1). A student's T-test was used to determine whether there was a significant difference between the CsgA KO control (negative) and the non-mutant CsgA control (positive); only 8 of the 26 plates showed significant data. Although plates 15 and 22 show a significant P-value, the CsgA control grew significantly less than the KO control, which means that these plates can't be used.
+            </p>
+            <PlateControlTable />
+            <p className="text-sm text-gray-600">Table 1. shows the P-value comparing the negative control with the positive control of each plate. A P-value of &lt; 0.05 shows a significant difference between the two controls.</p>
+
+            <h3 className="text-2xl font-bold mt-6">1.6.3 Standard controls</h3>
+            <p>
+                One way around this issue is to use a standard control across all the plates. Using a standard control (Table 2) allows us to investigate the significant mutants on plates which did not display a significant difference in biofilm formation between the controls. As we can compare all the CsgA mutants to a control which we know worked. The issue with using a standard control is it does not take differential plate conditions into consideration. Major differential conditions between the plates are likely to be minor as all the plates were treated using high-throughput machinery designed to assay 96 well plates.
+            </p>
+            <StandardControlTable />
+            <p className="text-sm text-gray-600">Table 2. The standard control used to compare all the results.</p>
+
+            <h3 className="text-2xl font-bold mt-6">1.6.4 Comparisons between the controls</h3>
+            <p>
+                Both the standard control and the plate-specific control graphs show similar results, with the same wells that show extreme biofilm formation when compared to one control showing similar biofilm formation when compared to the other. One of the major differences between the two graphs is that the standard control graph shows much more compressed results than the plate control graphs. Due to the standard control not taking individual plate conditions into consideration, some of the mutants which appear on the plate-specific control graph do not appear on the standard control graph, and vice versa. So, some of the mutants which just barely fall above/below the boundary for significant differences in biofilm formation compared to the standard wild type CsgA, may actually be false positives/negatives. The only reliable data we can take from this graph is that the colonies which show more than twice the biofilm formation of the standard control are unlikely to be due to random chance, so these colonies would be good to look into further.
+            </p>
+
+            <h3 className="text-2xl font-bold mt-6">1.6.5 Issues with the assay</h3>
+            <p>
+                Looking at the assay results, it seems like the induction failed in the non-significant plates. However, if the induction fails, then we should see no significant increases in biofilm formation on any of the non-significant plates; this is not the case as when compared with the standard control, we do see significant increases in biofilm formation in some of the wells. The other possibility is that the WT CsgA controls lost their plasmids containing CsgA. This is unlikely as each step of the Assay used Ampicillin which without the plasmid would have killed the cells. At this stage, we have no idea why the assay worked on some plates and failed on others. It would be best to repeat this experiment with a fresh set of wild type CsgA control colonies, and freshly made arabinose. This way we can get comparable plate-specific significant data for all plates. Although using a standard control does allow us to identify the increased biofilm mutants from each plate, conclusions should not be drawn from this data.
+            </p>
+
+            <h3 className="text-2xl font-bold mt-6">1.6.6 Plate significant controls</h3>
+            <p>
+                In this study, we produced a library of CsgA mutants generated through site-specific mutagenesis, with the aim of engineering E. coli strains with improved adhesion to plastics. Mutants were screened using the Crystal Violet biofilm assay. Of the 26 plates that were assayed in total, 7 of these plates yielded significant results (plates 1, 2, 3, 4, 5, 8, 9, and 21) using a Student's T-test comparing the positive controls with the negative controls. CsgA induction did not appear to be successful in the remaining plates.
+            </p>
+            <p>
+                Importantly, we identified 57 mutations that exhibited a significant increase in biofilm formation, and notably 21 of these were mutations in C1 (Figure 3). This identifies C1 as a key residue in mediating adhesion. We speculate that mutations at this site might have led to a significant difference in biofilm formation as this residue is located at the centre of the exposed region of R2 in the protein and is therefore at the interface between protein-protein and protein-substrate interactions. Another site which produced lots of mutants that were enhanced in biofilm formation is C2. C2 is located at the end of the exposed interface and neighbours the inner area, possibly indicating that this location may affect the inner folding of the protein, leading to differences in the net effect on biofilm formation.
+            </p>
+            <div className="mt-4">
+                <img src="/2024_Edinburgh/docs/img/figure10.png" alt="Figure 3: Plate-specific control results" className="w-full mb-4 rounded-lg shadow-md" />
+                <p className="text-sm text-gray-600"></p>
+            </div>
+
+            <h3 className="text-2xl font-bold mt-6">1.6.7 Standard controls</h3>
+            <p>
+                Using the standard controls, we received significant increases of biofilm formation on 15 of the 26 plates (Figure 4). This graph shows similar results to the plate-specific controls, with the same colonies showing extreme biofilm formation on both graphs. Notably, C24 F9 shows the highest biofilm formation out of any mutant assayed. This mutant is also present on the interface between the internal and external structure of CsgA. Mutations at this point may affect the folding of the protein leading to net effects on biofilm formation.
+            </p>
+            <div className="mt-4">
+                <img src="/2024_Edinburgh/docs/img/figure11.png" alt="Figure 4: Standard control results" className="w-full mb-4 rounded-lg shadow-md" />
+                <p className="text-sm text-gray-600"></p>
+            </div>
+
+            <h3 className="text-2xl font-bold mt-6">1.6.8 Significant colonies</h3>
+            <p>
+                On both graphs (Figure 3 and Figure 4) the red bars indicate mutants which show at least twice the amount of biofilm formation compared to the wild type CsgA control. Further work would include sequencing these particular colonies to discover what mutation occurs and analyzing how the mutations could have possibly improved the structure.
+            </p>
+        </div>
+    )
+},
+               
+                { 
+    id: '1.7', 
+    title: 'References',
+    content: (
+        <div className="space-y-4">
+            <ul className="list-disc pl-5 space-y-2">
+                <li>Aer, L., Jiang, Q., Gul, I., Qi, Z., Feng, J. and Tang, L. (2022). Overexpression and kinetic analysis of Ideonella sakaiensis PETase for polyethylene terephthalate (PET) degradation. Environmental Research, [online] p.113472. doi:<a href="https://doi.org/10.1016/j.envres.2022.113472" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.envres.2022.113472</a>.</li>
+                
+                <li>Ageorges, V., Wawrzyniak, I., Ruiz, P., Bicep, C., Zorgani, M.A., Paxman, J.J., Heras, B., Henderson, I.R., Leroy, S., Bailly, X., Sapountzis, P., Peyretaillade, E. and Desvaux, M. (2023). Genome-Wide Analysis of Antigen 43 (Ag43) Variants: New Insights in Their Diversity, Distribution and Prevalence in Bacteria. International Journal of Molecular Sciences, 24(6), p.5500. doi:<a href="https://doi.org/10.3390/ijms24065500" target="_blank" rel="noopener noreferrer">https://doi.org/10.3390/ijms24065500</a>.</li>
+                
+                <li>Atiwesh, G., Mikhael, A., Parrish, C.C., Banoub, J. and Le, T.-A.T. (2021). Environmental impact of bioplastic use: A review. Heliyon, [online] 7(9). doi:<a href="https://doi.org/10.1016/j.heliyon.2021.e07918" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.heliyon.2021.e07918</a>.</li>
+                
+                <li>Austin, H.P., Allen, M.D., Donohoe, B.S., Rorrer, N.A., Kearns, F.L., Silveira, R.L., Pollard, B.C., Dominick, G., Duman, R., El Omari, K., Mykhaylyk, V., Wagner, A., Michener, W.E., Amore, A., Skaf, M.S., Crowley, M.F., Thorne, A.W., Johnson, C.W., Woodcock, H.L. and McGeehan, J.E. (2018). Characterization and engineering of a plastic-degrading aromatic polyesterase. Proceedings of the National Academy of Sciences, 115(19), pp.E4350–E4357. doi:<a href="https://doi.org/10.1073/pnas.1718804115" target="_blank" rel="noopener noreferrer">https://doi.org/10.1073/pnas.1718804115</a>.</li>
+                
+                <li>Berne, C., Ducret, A., Hardy, G.G. and Brun, Y.V. (2015). Adhesins Involved in Attachment to Abiotic Surfaces by Gram-Negative Bacteria. Microbiology Spectrum, 3(4). doi:<a href="https://doi.org/10.1128/microbiolspec.mb-0018-2015" target="_blank" rel="noopener noreferrer">https://doi.org/10.1128/microbiolspec.mb-0018-2015</a>.</li>
+                
+                <li>Borrelle, S.B., Ringma, J., Law, K.L., Monnahan, C.C., Lebreton, L., McGivern, A., Murphy, E., Jambeck, J., Leonard, G.H., Hilleary, M.A., Eriksen, M., Possingham, H.P., Frond, H.D., Gerber, L.R., Polidoro, B., Tahir, A., Bernard, M., Mallos, N., Barnes, M. and Rochman, C.M. (2020). Predicted Growth in Plastic Waste Exceeds Efforts to Mitigate Plastic Pollution. Science, [online] 369(6510), pp.1515–1518. doi:<a href="https://doi.org/10.1126/science.aba3656" target="_blank" rel="noopener noreferrer">https://doi.org/10.1126/science.aba3656</a>.</li>
+                
+                <li>DeBenedictis, E.P., Liu, J. and Sinan Keten (2016a). Adhesion mechanisms of curli subunit CsgA to abiotic surfaces. Science Advances, 2(11). doi:<a href="https://doi.org/10.1126/sciadv.1600998" target="_blank" rel="noopener noreferrer">https://doi.org/10.1126/sciadv.1600998</a>.</li>
+                
+                <li>Ferreiro, D.U., Komives, E.A. and Wolynes, P.G. (2018). Frustration, function and folding. Current Opinion in Structural Biology, [online] 48(48), pp.68–73. doi:<a href="https://doi.org/10.1016/j.sbi.2017.09.006" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.sbi.2017.09.006</a>.</li>
+                
+                <li>Henderson, I.R. and Owen, P. (1999a). The Major Phase-Variable Outer Membrane Protein of Escherichia coli Structurally Resembles the Immunoglobulin A1 Protease Class of Exported Protein and Is Regulated by a Novel Mechanism Involving Dam and OxyR. Journal of Bacteriology, 181(7), pp.2132–2141. doi:<a href="https://doi.org/10.1128/jb.181.7.2132-2141.1999" target="_blank" rel="noopener noreferrer">https://doi.org/10.1128/jb.181.7.2132-2141.1999</a>.</li>
+                
+                <li>Heras, B., Totsika, M., Peters, K.M., Paxman, J.J., Gee, C.L., Jarrott, R.J., Perugini, M.A., Whitten, A.E. and Schembri, M.A. (2014b). The antigen 43 structure reveals a molecular Velcro-like mechanism of autotransporter-mediated bacterial clumping. Proceedings of the National Academy of Sciences of the United States of America, [online] 111(1), pp.457–462. doi:<a href="https://doi.org/10.1073/pnas.1311592111" target="_blank" rel="noopener noreferrer">https://doi.org/10.1073/pnas.1311592111</a>.</li>
+                
+                <li>Jacobs, T.M., Hayretin Yumerefendi, Kuhlman, B.A. and Leaver-Fay, A.P. (2014). SwiftLib: rapid degenerate-codon-library optimization through dynamic programming. Nucleic acids research, 43(5), pp.e34–e34. doi:<a href="https://doi.org/10.1093/nar/gku1323" target="_blank" rel="noopener noreferrer">https://doi.org/10.1093/nar/gku1323</a>.</li>
+                
+                <li>Jain, N., Ådén, J., Nagamatsu, K., Evans, M.L., Li, X., McMichael, B., Ivanova, M.I., Almqvist, F., Buxbaum, J.N. and Chapman, M.R. (2017). Inhibition of curli assembly and Escherichia coli biofilm formation by the human systemic amyloid precursor transthyretin. Proceedings of the National Academy of Sciences, 114(46), pp.12184–12189. doi:<a href="https://doi.org/10.1073/pnas.1708805114" target="_blank" rel="noopener noreferrer">https://doi.org/10.1073/pnas.1708805114</a>.</li>
+                
+                <li>Jenik, M., Parra, R.G., Radusky, L.G., Turjanski, A., Wolynes, P.G. and Ferreiro, D.U. (2012). Protein frustratometer: a tool to localize energetic frustration in protein molecules. Nucleic Acids Research, 40(W1), pp.W348–W351. doi:<a href="https://doi.org/10.1093/nar/gks447" target="_blank" rel="noopener noreferrer">https://doi.org/10.1093/nar/gks447</a>.</li>
+                
+                <li>Jiao, H., Ali, S.S., Husssein, M., Tamer Elsamahy, Abdelkarim, E., Schagerl, M., Rania Al-Tohamy and Sun, J. (2024). A critical review on plastic waste life cycle assessment and management: Challenges, research gaps, and future perspectives. Ecotoxicology and Environmental Safety, 271, pp.115942–115942. doi:<a href="https://doi.org/10.1016/j.ecoenv.2024.115942" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.ecoenv.2024.115942</a>.</li>
+                
+                <li>Kim, J.W., Park, S.-B., Tran, Q.-G., Cho, D.-H., Choi, D.-Y., Lee, Y.J. and Kim, H.-S. (2020). Functional expression of polyethylene terephthalate-degrading enzyme (PETase) in green microalgae. Microbial Cell Factories, 19(1). doi:<a href="https://doi.org/10.1186/s12934-020-01355-8" target="_blank" rel="noopener noreferrer">https://doi.org/10.1186/s12934-020-01355-8</a>.</li>
+                
+                <li>Kjærgaard, K., Hasman, H., Schembri, M.A. and Klemm, P. (2002). Antigen 43-Mediated Autotransporter Display, a Versatile Bacterial Cell Surface Presentation System. Journal of Bacteriology, 184(15), pp.4197–4204. doi:<a href="https://doi.org/10.1128/jb.184.15.4197-4204.2002" target="_blank" rel="noopener noreferrer">https://doi.org/10.1128/jb.184.15.4197-4204.2002</a>.</li>
+                
+                <li>Klemm, P., Hjerrild, L., Gjermansen, M. and Schembri, M.A. (2003). Structure-function analysis of the self-recognizing Antigen 43 autotransporter protein from Escherichia coli. Molecular Microbiology, 51(1), pp.283–296. doi:<a href="https://doi.org/10.1046/j.1365-2958.2003.03833.x" target="_blank" rel="noopener noreferrer">https://doi.org/10.1046/j.1365-2958.2003.03833.x</a>.</li>
+                
+                <li>Lee, P.Y., Costumbrado, J., Hsu, C.-Y. and Kim, Y.H. (2012). Agarose Gel Electrophoresis for the Separation of DNA Fragments. Journal of Visualized Experiments, [online] 3923(62). doi:<a href="https://doi.org/10.3791/3923" target="_blank" rel="noopener noreferrer">https://doi.org/10.3791/3923</a>.</li>
+                
+                <li>Maity, W., Maity, S., Bera, S. and Roy, A. (2021). Emerging Roles of PETase and MHETase in the Biodegradation of Plastic Wastes. Applied Biochemistry and Biotechnology, 193. doi:<a href="https://doi.org/10.1007/s12010-021-03562-4" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/s12010-021-03562-4</a>.</li>
+                
+                <li>Osman, A.I., Hosny, M., Eltaweil, A.S., Omar, S., Elgarahy, A.M., Farghali, M., Yap, P.-S., Wu, Y.-S., Nagandran, S., Batumalaie, K., Gopinath, S.C.B., John, O.D., Sekar, M., Saikia, T., Karunanithi, P., Hatta, M.H.M. and Akinyede, K.A. (2023). Microplastic sources, formation, toxicity and remediation: a review. Environmental Chemistry Letters, 21. doi:<a href="https://doi.org/10.1007/s10311-023-01593-3" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/s10311-023-01593-3</a>.</li>
+                
+                <li>Pereyra‐Camacho, M.A. and Pardo, I. (2024). Plastics and the Sustainable Development Goals: From waste to wealth with microbial recycling and upcycling. Microbial Biotechnology, [online] 17(4). doi:<a href="https://doi.org/10.1111/1751-7915.14459" target="_blank" rel="noopener noreferrer">https://doi.org/10.1111/1751-7915.14459</a>.</li>
+                
+                <li>Sadler, J.C., Green, L., Swainston, N., Kell, D.B. and Currin, A. (2018). Fast and Flexible Synthesis of Combinatorial Libraries for Directed Evolution. Elsevier eBooks, 608, pp.59–79. doi:<a href="https://doi.org/10.1016/bs.mie.2018.04.006" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/bs.mie.2018.04.006</a>.</li>
+                
+                <li>Silva, D., Santos, G., Barroca, M., Costa, D. and Collins, T. (2023). Inverse PCR for Site-Directed Mutagenesis. Methods in Molecular Biology (Clifton, N.J.), [online] 2967, pp.223–238. doi:<a href="https://doi.org/10.1007/978-1-0716-3358-8_18" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/978-1-0716-3358-8_18</a>.</li>
+                
+                <li>Thomsen, T.B., Almdal, K. and Meyer, A.S. (2023). Significance of poly(ethylene terephthalate) (PET) substrate crystallinity on enzymatic degradation. New Biotechnology, [online] 78, pp.162–172. doi:<a href="https://doi.org/10.1016/j.nbt.2023.11.001" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.nbt.2023.11.001</a>.</li>
+                
+                <li>Unc.edu. (2014). Available at: <a href="http://rosettadesign.med.unc.edu/SwiftLib/" target="_blank" rel="noopener noreferrer">http://rosettadesign.med.unc.edu/SwiftLib/</a> [Accessed 25 Sep. 2024].</li>
+                
+                <li>Vo, J.L., Ortiz, G.C.M., Totsika, M., Lo, A.W., Hancock, S.J., Whitten, A.E., Hor, L., Peters, K.M., Ageorges, V., Caccia, N., Desvaux, M., Schembri, M.A., Paxman, J.J. and Heras, B. (2022). Variation of Antigen 43 self-association modulates bacterial compacting within aggregates and biofilms. npj Biofilms and Microbiomes, 8(1). doi:<a href="https://doi.org/10.1038/s41522-022-00284-1" target="_blank" rel="noopener noreferrer">https://doi.org/10.1038/s41522-022-00284-1</a>.</li>
+                
+                <li>Wang, X. and Chapman, M.R. (2008). Sequence Determinants of Bacterial Amyloid Formation. Journal of Molecular Biology, 380(3), pp.570–580. doi:<a href="https://doi.org/10.1016/j.jmb.2008.05.019" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.jmb.2008.05.019</a>.</li>
+                
+                <li>Wang, X., Hammer, N.D. and Chapman, M.R. (2008). The Molecular Basis of Functional Bacterial Amyloid Polymerization and Nucleation. Journal of Biological Chemistry, 283(31), pp.21530–21539. doi:<a href="https://doi.org/10.1074/jbc.m800466200" target="_blank" rel="noopener noreferrer">https://doi.org/10.1074/jbc.m800466200</a>.</li>
+                
+                <li>Wang, X., Zhou, Y., Ren, J.-J. ., Hammer, N.D. and Chapman, M.R. (2009). Gatekeeper residues in the major curlin subunit modulate bacterial amyloid fiber biogenesis. Proceedings of the National Academy of Sciences, 107(1), pp.163–168. doi:<a href="https://doi.org/10.1073/pnas.0908714107" target="_blank" rel="noopener noreferrer">https://doi.org/10.1073/pnas.0908714107</a>.</li>
+                
+                <li>Wilson, D.S. and Keefe, A.D. (2001). Random Mutagenesis by PCR. Current Protocols in Molecular Biology. doi:<a href="https://doi.org/10.1002/0471142727.mb0803s51" target="_blank" rel="noopener noreferrer">https://doi.org/10.1002/0471142727.mb0803s51</a>.</li>
+                
+                <li>Yamashita, T., Matsumoto, T., Yamada, R. and Ogino, H. (2024). Display of PETase on the Cell Surface of Escherichia coli Using the Anchor Protein PgsA. Applied Biochemistry and Biotechnology. doi:<a href="https://doi.org/10.1007/s12010-023-04837-8" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/s12010-023-04837-8</a>.</li>
+                
+                <li>Yan, Z., Yin, M., Chen, J. and Li, X. (2020). Assembly and substrate recognition of curli biogenesis system. Nature Communications, 11(1). doi:<a href="https://doi.org/10.1038/s41467-019-14145-7" target="_blank" rel="noopener noreferrer">https://doi.org/10.1038/s41467-019-14145-7</a>.</li>
+                
+                <li>Yee, M.S.-L., Hii, L.-W., Looi, C.K., Lim, W.-M., Wong, S.-F., Kok, Y.-Y., Tan, B.-K., Wong, C.-Y. and Leong, C.-O. (2021). Impact of Microplastics and Nanoplastics on Human Health. Nanomaterials, [online] 11(2), p.496. doi:<a href="https://doi.org/10.3390/nano11020496" target="_blank" rel="noopener noreferrer">https://doi.org/10.3390/nano11020496</a>.</li>
+            </ul>
+        </div>
+    )
+},
+               
+            ];
+
+            const toggleSection = (id) => {
+        setActiveSection(activeSection === id ? null : id);
+    };
+
+    return (
+        <div className="max-w-4xl mx-auto p-6">
+            <h2 className="text-3xl font-bold mb-8 text-center text-indigo-700">Click on tabs to expand</h2>
+            {sections.map((section) => (
+                <div key={section.id} className="mb-4 border-b border-gray-200 pb-4">
+                    <button
+                        className="w-full px-4 py-3 text-left font-semibold flex justify-between items-center focus:outline-none hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                        onClick={() => toggleSection(section.id)}
+                    >
+                        <span className="text-lg">{section.id} {section.title}</span>
+                        {ChevronDown && <ChevronDown size={24} />}
+                    </button>
+                    {activeSection === section.id && (
+                        <div className="p-4 mt-2">
+                            {section.content}
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+};
+        ReactDOM.render(<ResultsSection />, document.getElementById('results-root'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project Workflow</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> 
+    <link rel="stylesheet" href="/2024_Edinburgh/css/style.css">
+    <style>
+        
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+.navbar {
+    z-index: 2000;
+        }
+
+
+
+.intro-container {
+    width: 100%;
+    height: 120vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: ghostwhite;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1000;
+    padding-top: 70px;
+}
+
+.intro-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.intro-node {
+    fill: #00a8ff;
+    stroke: #fff;
+    stroke-width: 2;
+    filter: url(#glow);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.5s ease-out;
+}
+
+.intro-connection {
+    stroke: #00a8ff;
+    stroke-width: 1;
+    filter: url(#glow);
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 2s ease-out;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.intro-node, .intro-connection {
+    animation: pulse 3s infinite;
+}
+
+.intro-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: black;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+/* Main content styles */
+.main-content {
+    position: relative;
+    z-index: 1;
+    background-color: ghostwhite;
+    min-height: 100vh;
+    padding-top: 100vh; 
+}
+
+
+.workflow-container {
+    width: 100%;
+    min-height: 1500px;
+    background-color: ghostwhite;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.workflow-svg {
+    width: 100%;
+    height: auto;
+}
+
+
+.node {
+    fill: #00a8ff;
+    stroke: #000;
+    stroke-width: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+.node:hover {
+    fill: #0077ff;
+}
+
+.node-text {
+    fill: white;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+
+.node-group {
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.connection {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 1s ease-in-out;
+     stroke: black;
+    stroke-width: 2;
+    fill: none;
+}
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 1001;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.popup h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.popup-content {
+    color: #666;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+/* Additional styles for responsiveness I guess.. */
+@media (max-width: 768px) {
+    .intro-title {
+        font-size: 3rem;
+    }
+
+    .node-text {
+        font-size: 12px;
+    }
+}
+.sworkflow {
+    text-align: center;
+    margin: 40px 0;
+    background-color: ghostwhite;
+    width: 100%;
+        }
+
+#staticworkflowheader {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sworkflow a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00a8ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sworkflow a:hover {
+    background-color: #0077ff;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-placeholder">
+        <img src= "/2024_Edinburgh/docs/img/logo.png">
+        </div>
+        <div class="nav-links">
+            <a href="/2024_Edinburgh/index.html">Home</a>
+            <div class="dropdown">
+                <span>Project</span>
+                <div class="dropdown-content">
+                    <a href="/2024_Edinburgh/docs/project/Description-project.html">Description</a>
+                    <a href="/2024_Edinburgh/docs/project/Results-project.html">Results</a>
+                    <a href="/2024_Edinburgh/docs/project/Workflow-project.html">Workflow</a>
+                    <a href="/2024_Edinburgh/docs/project/Supplementary.html">Methods</a>
+                </div>
+            </div>
+            <a href="/2024_Edinburgh/docs/Team/teampage.html">Team</a>
+            <a href="/2024_Edinburgh/docs/documentation/documentation.html">Documentation</a>
+            <a href="/2024_Edinburgh/docs/humanpractices/humanpractices.html">Human practices</a>
+        </div>
+    </nav>
+
+    <div class="intro-container" id="introContainer">
+        <svg id="intro-svg" viewBox="0 0 1000 600" class="intro-svg">
+            <defs>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            <!-- Intro SVG content will be dynamically added here,perhaps.... -->
+        </svg>
+        <h1 class="intro-title">Our Workflow</h1>
+    </div>
+
+    <div class="main-content">
+        <div class="workflow-container">
+            <svg id="workflow-svg" viewBox="-150 0 1700 2200" class="workflow-svg">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                    refX="0" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#000000" />
+                    </marker>
+                </defs>
+                <g class="connections">
+                        <!-- Main Connections -->
+                
+                <path d="M700 300 L700 500" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M700 500 L900 600" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M700 500 L900 750" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M700 500 L900 900" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M700 1200 L600 1300" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M700 1200 L800 1300" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M700 1200 L600 1300" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M700 1200 L800 1300" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M600 1300 L450 1300" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M800 1300 L950 1300" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M450 1300 L450 1450" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M950 1300 L950 1450" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M450 1450 L600 1450" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M600 1450 L600 1600" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M450 1600 L600 1600" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M450 1600 L450 1750" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M450 1750 L600 1750" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M600 1750 L600 1900" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M600 1900 L600 2050" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M800 1450 L950 1450" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M800 1450 L800 1600" class="connection" marker-end="url(#arrowhead)" />
+                <!-- Left side connections -->
+                <path d="M700 500 L500 600" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M700 500 L500 750" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M500 600 L300 500" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M500 600 L300 700" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M500 750 L300 800" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M500 750 L300 900" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M300 700 L100 700" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M100 700 L0 600" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M100 700 L0 800" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M0 800 L0 900" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M300 900 L0 900" class="connection" marker-end="url(#arrowhead)" />
+                
+                <!-- Right Sub-connections -->
+                <path d="M900 600 L1100 500" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M900 600 L1100 700" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M900 750 L1100 800" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M900 750 L1100 900" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M900 900 L1100 1000" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M900 900 L1100 1100" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M1100 700 L1300 750" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M1100 800 L1300 750" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M1300 750 L1500 675" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M1300 750 L1500 825" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M1100 1100 L1500 1100" class="connection" marker-end="url(#arrowhead)" />
+                <path d="M1500 825 L1500 1100" class="connection" marker-end="url(#arrowhead)" />
+                
+                <!-- Connection from Step 23 to Step 28 -->
+                <path d="M1500 1100 L700 1200" class="connection" marker-end="url(#arrowhead)" />
+                
+                <!-- Connection from Step 27 to Step 28 -->
+                <path d="M0 900 L700 1200" class="connection" marker-end="url(#arrowhead)" />
+                </g>
+                <g class="nodes">
+                     <g id="node1" class="node-group">
+                    <circle cx="700" cy="100" r="60" class="node" />
+                    <text x="700" y="100" dy=".3em" class="node-text">Click Me</text>
+                </g>
+                <g id="node2" class="node-group">
+                    <circle cx="700" cy="300" r="60" class="node" />
+                    <text x="700" y="300" dy=".3em" class="node-text">Starting materials</text>
+                </g>
+                <g id="node2.5" class="node-group">
+                    <circle cx="100" cy="350" r="100" class="node subnode" />
+                    <text x="100" y="350" dy=".4em" class="node-text">Error-prone PCR</text>
+                </g>
+                 <g id="node2.75" class="node-group">
+                    <circle cx="1300" cy="350" r="100" class="node" />
+                    <text x="1300" y="350" dy=".4em" class="node-text">Site-Directed Mutagenesis</text>
+                </g>
+                <g id="node3" class="node-group">
+                    <circle cx="700" cy="500" r="60" class="node" />
+                    <text x="700" y="500" dy=".3em" class="node-text">Miniprep</text>
+                </g>
+                <g id="node4" class="node-group">
+                    <circle cx="900" cy="600" r="60" class="node" />
+                    <text x="900" y="600" dy=".3em" class="node-text">Asymmetric PCR</text>
+                </g>
+                <g id="node5" class="node-group">
+                    <circle cx="900" cy="750" r="60" class="node" />
+                    <text x="900" y="750" dy=".3em" class="node-text">Amplify Gene</text>
+                </g>
+                <g id="node6" class="node-group">
+                    <circle cx="900" cy="900" r="60" class="node" />
+                    <text x="900" y="900" dy=".3em" class="node-text">Amplify Backbone</text>
+                </g>
+                <g id="node8" class="node-group">
+                    <circle cx="500" cy="600" r="60" class="node" />
+                    <text x="500" y="600" dy=".3em" class="node-text">Amplify CsgA gene</text>
+                </g>
+                <g id="node9" class="node-group">
+                    <circle cx="500" cy="750" r="60" class="node" />
+                    <text x="500" y="750" dy=".3em" class="node-text">Amplify Backbone</text>
+                </g>
+                
+                <!-- Right Sub-nodes -->
+                <g id="node10" class="node-group">
+                    <circle cx="1100" cy="500" r="50" class="node subnode" />
+                    <text x="1100" y="500" dy=".3em" class="node-text">Verify Size</text>
+                </g>
+                <g id="node11" class="node-group">
+                    <circle cx="1100" cy="700" r="50" class="node subnode" />
+                    <text x="1100" y="700" dy=".3em" class="node-text">Purify</text>
+                </g>
+                <g id="node12" class="node-group">
+                    <circle cx="1100" cy="800" r= "50" class="node subnode" />
+                    <text x="1100" y="800" dy=".3em" class="node-text">Purify</text>
+                </g>
+                <g id="node13" class="node-group">
+                    <circle cx="1100" cy="900" r="50" class="node subnode" />
+                    <text x="1100" y="900" dy=".3em" class="node-text">Verify Size</text>
+                </g>
+                <g id="node14" class="node-group">
+                    <circle cx="1100" cy="1000" r="50" class="node subnode" />
+                    <text x="1100" y="1000" dy=".3em" class="node-text">Verify Size</text>
+                </g>
+                <g id="node15" class="node-group">
+                    <circle cx="1100" cy="1100" r="50" class="node subnode" />
+                    <text x="1100" y="1100" dy=".3em" class="node-text">Purify</text>
+                </g>
+                
+                <!-- Left Sub-nodes -->
+                <g id="node16" class="node-group">
+                    <circle cx="300" cy="500" r="50" class="node subnode" />
+                    <text x="300" y="500" dy=".3em" class="node-text">Verify Size</text>
+                </g>
+                <g id="node17" class="node-group">
+                    <circle cx="300" cy="700" r="50" class="node subnode" />
+                    <text x="300" y="700" dy=".3em" class="node-text">Purify</text>
+                </g>
+                <g id="node18" class="node-group">
+                    <circle cx="300" cy="800" r="50" class="node subnode" />
+                    <text x="300" y="800" dy=".3em" class="node-text">Verify Size</text>
+                </g>
+                <g id="node19" class="node-group">
+                    <circle cx="300" cy="900" r="50" class="node subnode" />
+                    <text x="300" y="900" dy=".3em" class="node-text">Purify</text>
+                </g>
+                <g id="node20" class="node-group">
+                    <circle cx="1300" cy="750" r="60" class="node subsubnode" />
+                    <text x="1300" y="750" dy=".3em" class="node-text">Symmetric PCR</text>
+                </g>
+                <g id="node21" class="node-group">
+                    <circle cx="1500" cy="675" r="50" class="node subsubnode" />
+                    <text x="1500" y="675" dy=".3em" class="node-text">Verify Size</text>
+                </g>
+                <g id="node22" class="node-group">
+                    <circle cx="1500" cy="825" r="50" class="node subsubnode" />
+                    <text x="1500" y="825" dy=".3em" class="node-text">Purify</text>
+                </g>
+                <g id="node23" class="node-group">
+                    <circle cx="1500" cy="1100" r="50" class="node subsubnode" />
+                    <text x="1500" y="1100" dy=".3em" class="node-text">Cloning</text>
+                </g>
+                <g id="node24" class="node-group">
+                    <circle cx="100" cy="700" r="60" class="node subnode" />
+                    <text x="100" y="700" dy=".3em" class="node-text">EP-PCR for CsgA</text>
+                </g>
+                <g id="node25" class="node-group">
+                    <circle cx="0" cy="600" r="50" class="node subsubnode" />
+                    <text x="0" y="600" dy=".3em" class="node-text">Verify Size</text>
+                </g>
+                <g id="node26" class="node-group">
+                    <circle cx="0" cy="800" r="40" class="node subsubnode" />
+                    <text x="0" y="800" dy=".3em" class="node-text">Purify</text>
+                </g>
+                <g id="node27" class="node-group">
+                    <circle cx="0" cy="900" r="50" class="node subsubnode" />
+                    <text x="0" y="900" dy=".3em" class="node-text">Cloning</text>
+                </g>
+                <g id="node28" class="node-group">
+                    <circle cx="700" cy="1200" r="60" class="node" />
+                    <text x="700" y="1200" dy=".3em" class="node-text">Transformation 1</text>
+                </g>
+                <g id="node29" class="node-group">
+                    <circle cx="600" cy="1300" r="60" class="node" />
+                    <text x="600" y="1300" dy=".3em" class="node-text">Inoculation in LB</text>
+                </g>
+                <g id="node30" class="node-group">
+                    <circle cx="800" cy="1300" r="60" class="node" />
+                    <text x="800" y="1300" dy=".3em" class="node-text">Plating</text>
+                </g>
+                <g id="node31" class="node-group">
+                    <circle cx="450" cy="1300" r="60" class="node" />
+                    <text x="450" y="1300" dy=".3em" class="node-text">Miniprep</text>
+                </g>
+                <g id="node32" class="node-group">
+                    <circle cx="950" cy="1300" r="60" class="node" />
+                    <text x="950" y="1300" dy=".3em" class="node-text">Pick colonies</text>
+                </g>
+                <g id="node33" class="node-group">
+                    <circle cx="450" cy="1450" r="60" class="node" />
+                    <text x="450" y="1450" dy=".3em" class="node-text">Transformation 2</text>
+                </g>
+                <g id="node34" class="node-group">
+                    <circle cx="950" cy="1450" r="60" class="node" />
+                    <text x="950" y="1450" dy=".3em" class="node-text">Miniprep</text>
+                </g>
+                 <g id="node35" class="node-group">
+                    <circle cx="600" cy="1450" r="60" class="node" />
+                    <text x="600" y="1450" dy=".3em" class="node-text">Plating</text>
+                </g>
+                <g id="node36" class="node-group">
+                    <circle cx="600" cy="1600" r="60" class="node" />
+                    <text x="600" y="1600" dy=".3em" class="node-text">Transfer colonies</text>
+                </g>
+                <g id="node37" class="node-group">
+                    <circle cx="450" cy="1600" r="60" class="node" />
+                    <text x="450" y="1600" dy=".3em" class="node-text">Assay (Day 1)</text>
+                </g>
+                <g id="node38" class="node-group">
+                    <circle cx="450" cy="1750" r="60" class="node" />
+                    <text x="450" y="1750" dy=".3em" class="node-text">Assay (Day 2)</text>
+                </g>
+                <g id="node39" class="node-group">
+                    <circle cx="600" cy="1750" r="60" class="node" />
+                    <text x="600" y="1750" dy=".3em" class="node-text">Assay (Day 3)</text>
+                </g>
+                <g id="node40" class="node-group">
+                    <circle cx="600" cy="1900" r="60" class="node" />
+                    <text x="600" y="1900" dy=".3em" class="node-text">Spectrophotometer</text>
+                </g>
+                <g id="node41" class="node-group">
+                    <circle cx="600" cy="2050" r="60" class="node" />
+                    <text x="600" y="2050" dy=".3em" class="node-text">Analyze</text>
+                </g>
+                <g id="node42" class="node-group">
+                    <circle cx="800" cy="1450" r="60" class="node" />
+                    <text x="800" y="1450" dy=".3em" class="node-text">Sequencing</text>
+                </g>
+                <g id="node43" class="node-group">
+                    <circle cx="800" cy="1600" r="60" class="node" />
+                    <text x="800" y="1600" dy=".3em" class="node-text">Analyze results</text>
+                </g>
+                </g>
+            </svg>
+        </div>
+
+        <div id="popup" class="popup">
+            <span class="close-btn">&times;</span>
+            <h2 id="popup-title"></h2>
+            <div id="popup-content" class="popup-content"></div>
+        </div>
+        <div id="staticworkflow" class="sworkflow">
+    <h3 id="staticworkflowheader">Static Workflow</h3>
+    <a href="/2024_Edinburgh/docs/img/staticworkflow.jpg" target="_blank">View Static Workflow Image</a>
+</div>
+
+        <footer class="end-section">
+            <div class="location-container">
+                <h2 class="map-header">Our Location</h2>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.3080769841813!2d-3.177915484069889!3d55.92155432744188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c7619777d9b7%3A0xfc241ebbe5c7a678!2sPeter%20Wilson%20Building%2C%20W%20Mains%20Rd%2C%20Edinburgh%20EH9%203JG%2C%20UK!5e0!3m2!1sen!2sus!4v1692648542208!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <div class="supporters-container">
+                <h2 class="supporters-header">Our Supporters</h2>
+                <img src="/2024_Edinburgh/docs/img/Oursupporters-removebg-preview.png" alt="Our Supporters" class="funders-image">
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Intro animation nodes, a pain to figure out
+const introNodes = [
+    { x: 500, y: 300 }, { x: 200, y: 150 }, { x: 800, y: 150 },
+    { x: 200, y: 450 }, { x: 800, y: 450 }, { x: 350, y: 100 },
+    { x: 650, y: 100 }, { x: 350, y: 500 }, { x: 650, y: 500 },
+    { x: 100, y: 300 }, { x: 900, y: 300 }, { x: 400, y: 200 },
+    { x: 600, y: 200 }, { x: 400, y: 400 }, { x: 600, y: 400 },
+];
+
+// Create intro connections
+function createIntroConnections(nodes) {
+    return nodes.flatMap((node, i) => 
+        nodes.slice(i + 1).map(otherNode => `
+            <line 
+                x1="${node.x}" y1="${node.y}"
+                x2="${otherNode.x}" y2="${otherNode.y}"
+                class="intro-connection"
+            />
+        `)
+    ).join('');
+}
+
+// Create intro nodes
+function createIntroNodes(nodes) {
+    return nodes.map((node, index) => `
+        <circle 
+            cx="${node.x}" cy="${node.y}" r="20" 
+            class="intro-node"
+        />
+    `).join('');
+}
+
+// Add intro SVG content
+const introSvg = document.getElementById('intro-svg');
+introSvg.innerHTML += createIntroConnections(introNodes) + createIntroNodes(introNodes);
+
+// Animate intro
+function animateIntro() {
+    const introNodeElements = document.querySelectorAll('.intro-node');
+    const introLines = document.querySelectorAll('.intro-connection');
+
+    introNodeElements.forEach((node, index) => {
+        setTimeout(() => {
+            node.style.opacity = 1;
+            node.style.transform = 'scale(1)';
+        }, index * 100);
+    });
+
+    introLines.forEach((line, index) => {
+        setTimeout(() => {
+            line.style.strokeDashoffset = '0';
+        }, index * 50);
+    });
+
+    setTimeout(() => {
+        document.querySelector('.intro-title').style.opacity = 1;
+        document.querySelector('.intro-title').style.transform = 'translate(-50%, -50%) translateY(-20px)';
+    }, introNodeElements.length * 100 + introLines.length * 50 + 500);
+}
+
+// Scroll behavior, makes it dynamic, nice looking, appleesque
+const introContainer = document.querySelector('.intro-container');
+window.addEventListener('scroll', () => {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > window.innerHeight / 2) {
+        introContainer.style.opacity = '0';
+        introContainer.style.pointerEvents = 'none';
+    } else {
+        introContainer.style.opacity = '1';
+        introContainer.style.pointerEvents = 'auto';
+    }
+});
+
+// Popup functionality
+const nodes = document.querySelectorAll('.node-group');
+const popup = document.getElementById('popup');
+const popupTitle = document.getElementById('popup-title');
+const popupContent = document.getElementById('popup-content');
+const closeBtn = document.querySelector('.close-btn');
+
+
+const stepInfo = {
+    "Click Me": "This flowchart displays our research process. We aim to make our work both accessible and reproducible, and we hope this flowchart is useful in doing so. Please click on the different steps to learn more. If the interactive features are unavailable on certain browsers, please scroll down further to a find a static version of our workflow. Enjoy!",
+    "Starting materials": "We obtained E.Coli MG1655 cells hosting pBAD-Ag43 and pBAD-Curli plasmids from the Sadler Lab. We cultured these overnight in 0.1% Ampicillin LB",
+    "Site-Directed Mutagenesis": "The right side of the flowchart focuses on our process for site-directed mutagenesis using the megaprimer method. We chose this method due to feasibility of combining specific mutations using the megaprimers. Due to time constraints we were unable to reach this step, however, for anyone interested in conducting future work using our current data, this method would be optimal.",
+    "Error-prone PCR": "In addition to site-directed mutagenesis (right), we also attempted to conduct random mutagensis of CsgA using Error-prone PCR. Unfortunately, our several attempts yielded CsgA genes with no mutations. We are unsure why, but have provided the steps we utilized if future work would like to fix this method or avoid it altogether.",
+    "Asymmetric PCR": "We used asymmetric PCR to generate megaprimers. Please refer to our methods section for a detailed description of our process.",
+    "Amplify Gene": "We conducted a PCR using Q5 High Fidelity enzyme from NEB to amplify our genes. Please refer to our methods section for a detailed description of our process.",
+    "Amplify Backbone": "We conducted a PCR using Q5 High Fidelity enzyme from NEB to amplify our plasmid backbone. Please refer to our methods section for a detailed description of our process.",
+    "Purify": "Our purification of PCR products involves three steps: 1. Conducting a DpnI digest to remove any residual template plasmid. 2. Conducting PCR clean-up using Wizard® SV Gel and PCR Clean-Up System. 3. Measuring concentration of our products using a Nanodrop. Please refer to our method section for more details about our processes. ",
+    "Cloning": "We used Gibson Assembly to clone our mutant genes into the plasmid backbone. Please refer to our methods section for a detailed description of our process.",
+    "Verify Size": "Verification of our PCR products is a crucial step in our method. We use Gel Electrophoresis to do so, which tells us the size of our products. We measure the size by running a DNA ladder alongside our products. This step also indicates if any secondary products were formed in the PCR. In such cases, we would purify our samples by Gel extraction instead of PCR Clean-up, however, we did not get any secondary products in our PCRs as we had optimized our method.",
+    "EP-PCR for CsgA": "Please refer to our methods section for more information about this step.",
+    "Amplify CsgA gene": "We conducted a PCR using Q5 High Fidelity enzyme from NEB to amplify our CsgA gene. Please refer to our methods section for a detailed description of our process.",
+    "Transformation 1": "We transformed NEB 5-alpha Competent E. coli (C2987) with our plasmids to amplify them. Please refer to our methods section for a detailed description of our process. ",
+    "Transformation 2": "We transformed competent E.Coli MG1655 - double knockout (DK) of Curli operons and Ag43 gene with miniprepped plasmids from the previous step. Please refer to our methods section for a detailed description of how we conducted our transformation and how we made competent cells.",
+    "Plating": "We plated our transformed cells on 0.1% Ampicillin LB Agar and left the plates at 37°C overnight",
+    "Transfer colonies": "We picked single colonies which hosted our mutant plasmids from the LB plate and transfered them into a well on a 96-well plate. This plate will serve as the master plate for our assay. This step and the subsequent assay was conducted by the Edinburgh Genome Foundry, who host a robotic colony picker and acoustic dispenser. This significantly expedited our process. For each mutant 96 colonies were screened. NNK has 32 possible nucleotide combinations it can generate. In order to screen 95% of the possible outcomes for each mutant, 3x the library size was assayed.",
+    "Assay (Day 1)": "On day one, overnight cultures (from the master plate) of our transformed MG1655 (DK) cells were placed in a shaking incubator on a new 96 well plate (assay plate). Please refer to our methods section for a detailed description of our process. ",
+    "Assay (Day 2)": "The production of CsgA was induced in our assay plate by the addition of arabinose solution. Please refer to our methods section for a detailed description of our process.",
+    "Assay (Day 3)": "After allowing the induced cells to grow for 18 hours, we conducted Crystal Violet Staining to quantify biolfilm formation on the polystyrene. Please refer to our methods section for a detailed description of our process.",
+    "Pick colonies": "After plating 1/4 of our transformed cells on 0.1% Ampicillin LB Agar, we picked a few colonies (3-6) and cultured them overnight in 5ml of 0.1% Ampicillin LB.",
+    "Spectrophotometer": "Following the last step, we measure the absorbance (Abs550) of the wells.",
+    "Analyze": "These results are recieved in the form of an excel sheet, which we then analyze. Please refer to our results section for more information",
+    "Analyze results": "We view our sequencing results on Benchling by creating an alignment against the non-mutant plasmid.",
+    "Sequencing": "The miniprepped plasmids from our overnight cultures was sent for Sanger Sequencing. This verification step allows us to see if our mutagenesis has worked.",
+    "Inoculation in LB": "We inoculated 3/4 of our transformed cells in 5ml of 0.1% Ampicillin LB.",
+    "Miniprep": "The miniprep allows us to extract plasmids from host cells. This involves culturing the host cells overnight in 5ml of 0.1% Ampicillin LB (as done in the previous step), then following the instructions on the QIAprep Spin Miniprep Kit. These instructions are available on the manufacturer's website. The kit provides us with all the required reagents to do the miniprep. We made a slight alteration to the manufacturer's method, where we elute our DNA with DNAase-free water instead of EB Buffer. We then measure the concentration of the obtained plasmid sample on a Nanodrop.",
+   
+    
+    // Add information for all other steps yeahhh
+};
+
+nodes.forEach((node) => {
+    node.addEventListener('click', (e) => {
+        const stepName = node.querySelector('.node-text').textContent;
+        popupTitle.textContent = stepName;
+        popupContent.textContent = stepInfo[stepName] || "Information about this step is not available.";
+        popup.style.display = 'block';
+        e.stopPropagation();
+    });
+});
+
+closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
+document.addEventListener('click', (e) => {
+    if (e.target !== popup && !popup.contains(e.target)) {
+        popup.style.display = 'none';
+    }
+});
+
+// Initialize
+window.addEventListener('load', () => {
+    introContainer.style.opacity = '1';
+    introContainer.style.pointerEvents = 'auto';
+    animateIntro(); // Call the intro animation function
+});
+// Workflow animation
+function animateWorkflow() {
+    const nodes = document.querySelectorAll('.node-group');
+    const connections = document.querySelectorAll('.connection');
+
+    // Reset styles
+    nodes.forEach(node => {
+        node.style.opacity = '0';
+        node.style.transform = 'scale(0)';
+    });
+    connections.forEach(conn => {
+        conn.style.strokeDasharray = conn.getTotalLength();
+        conn.style.strokeDashoffset = conn.getTotalLength();
+    });
+
+    // Animate nodes
+    nodes.forEach((node, index) => {
+        setTimeout(() => {
+            node.style.transition = 'opacity 0.5s, transform 0.5s';
+            node.style.opacity = '1';
+            node.style.transform = 'scale(1)';
+        }, index * 50);
+    });
+
+    // Animate connections
+    setTimeout(() => {
+        connections.forEach((conn, index) => {
+            setTimeout(() => {
+                conn.style.transition = 'stroke-dashoffset 1s ease-in-out';
+                conn.style.strokeDashoffset = '0';
+            }, index * 20);
+        });
+    }, nodes.length * 50);
+}
+
+// Intersection Observer for workflow animation
+const workflowContainer = document.querySelector('.workflow-container');
+const workflowObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateWorkflow();
+            workflowObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+workflowObserver.observe(workflowContainer);
+    </script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Description</title>
+    <link rel="stylesheet" href="/2024_Edinburgh/css/style.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+        }
+        .content-section {
+    position: relative;
+    height: calc(100vh - 1px); 
+    width: 100%;
+    overflow: hidden;
+    margin-top: -5px; 
+}
+        .scroll-content {
+            width: 100%;
+            overflow: visible;
+        }
+        .scroll-section {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease;
+        }
+        .scroll-text, .scroll-image {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        .scroll-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .scroll-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .scroll-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .scroll-text p {
+            font-size: 1.2rem;
+        }
+        .scroll-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        @keyframes slideFromLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideFromRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes rotateIn {
+            from { transform: rotate(-90deg); opacity: 0; }
+            to { transform: rotate(0); opacity: 1; }
+        }
+        .em {
+            font-style: italic;
+        }
+        .scroll-section3{
+            padding-top: 5px;
+        }
+        .scroll-image3{
+            height: 70%;
+            width: 70%;
+        }
+       
+        .animate-slide-left { animation: slideFromLeft 1s ease forwards; }
+        .animate-slide-right { animation: slideFromRight 1s ease forwards; }
+        .animate-fade { animation: fadeIn 1s ease forwards; }
+        .animate-scale { animation: scaleIn 1s ease forwards; }
+        .animate-rotate { animation: rotateIn 1s ease forwards; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-placeholder">
+        <img src= "/2024_Edinburgh/docs/img/logo.png">
+        </div>
+        <div class="nav-links">
+            <a href="/2024_Edinburgh/index.html">Home</a>
+            <div class="dropdown">
+                <span>Project</span>
+                <div class="dropdown-content">
+                    <a href="/2024_Edinburgh/docs/project/Description-project.html">Description</a>
+                    <a href="/2024_Edinburgh/docs/project/Results-project.html">Results</a>
+                    <a href="/2024_Edinburgh/docs/project/Workflow-project.html">Workflow</a>
+                    <a href="/2024_Edinburgh/docs/project/Supplementary.html">Methods</a>
+                </div>
+            </div>
+            <a href="/2024_Edinburgh/docs/Team/teampage.html">Team</a>
+            <a href="/2024_Edinburgh/docs/documentation/documentation.html">Documentation</a>
+            <a href="/2024_Edinburgh/docs/humanpractices/humanpractices.html">Human practices</a>
+        </div>
+    </nav>
+    
+    <main class="content-section">
+        <div class="scroll-content">
+            <section class="scroll-section" id="section1">
+                <div class="scroll-text">
+                    <h2>
+                    <em>The Problem</em>
+                    </h2>
+                    <h3>Our planet is choking on plastics and recycling methods are energy-intensive and largely inefficient</h3>
+                    <p>Only 9% of all plastics produced are recycled (Organization for Economic Co-operation and Development, 2022) <br><br> 50% of plastics end up in landfills and 22% are leaked into our environments (Organization for Economic Co-operation and Development, 2022). A better solution is needed </p>
+                </div>
+                <div class="scroll-image">
+                    <img src="/2024_Edinburgh/docs/img/plasticpollution.jpg" alt="Research Problem Visualization">
+                </div>
+            </section>
+            
+            <section class="scroll-section" id="section2">
+                <div class="scroll-text">
+                    <h2><em>A Potential Solution</em></h2>
+                    <h3>Recent discoveries of a toolbox of biocatalysts, capable of plastic degradation, offers a biotechnological solution to address the plastic waste crisis</h3>
+                    <p>In 2016, researchers at the Kyoto Institute of Technology identified a bacteria, <em>Ideonella sakaiensis</em>, that can metabolise plastics through enzymatic PET (PETase) degradation. Research is emerging that explores the potential role of other such enzymes as molecular tools in biodegradation <br> However, to increase the efficiency of these novel degradation technologies, engineering cells that effectively colonise plastic surfaces is crucial.</p>
+                </div>
+                <div class="scroll-image">
+                    <img src="/2024_Edinburgh/docs/img/plastic-eating-bacteria.jpg" alt="Research Approach Visualization">
+                </div>
+            </section>
+            
+            <section class="scroll-section" id="section3">
+                <div class="scroll-text">
+                    <h2><em>Our Research</em></h2>
+                    <h3>We aimed to achieve enhanced plastic colonization through the Directed Evolution of two <em>Escherichia coli</em> cell surface proteins: Curli subunit CsgA and Antigen 43 (Ag43)</h3>
+                    <p>Prior research in the Sadler lab at the University of Edinburgh demonstrated that overexpression of plasmid-encoded cell surface proteins Ag43 and Curli in <em>E.Coli</em> enhances plastic adhesion. We used a combination of site-specific and random mutagenesis of Curli subunit CsgA and Ag43 to enhance <em>E.coli's</em> adherence to polystyrene.</p>
+                </div>
+                <div class="scroll-image">
+                    <img src="/2024_Edinburgh/docs/img/Ag43CsgA2.png" alt="Key Findings Visualization">
+                </div>
+            </section>
+            
+            <section class="scroll-section" id="section4">
+                <div class="scroll-text">
+                    <h2><em>Key Findings</em></h2>
+                    <h3>We identified 57 mutations in the CsgA subunit that resulted in significant improvements in polystyrene adhesion</h3>
+                    <p>Notably, 21 of these mutations were present at one position on CsgA. We speculate that mutations at this site might have led to a significant difference in biofilm formation as this residue is located at the centre of an exposed region in the protein. Several other sites were also identified, which displayed increased or decreased biofilm formation, indicating that these sites may also be crucial for plastic adherence.<br><br> Unfortunately, our work on Ag43 was unsuccessful due to issues in our methods, and we were unable to gather results in time for the submission of our report.</p>
+                </div>
+                <div class="scroll-image">
+                    <img src="/2024_Edinburgh/docs/img/csgasitesdes.png" alt="Research Impact Visualization">
+                </div>
+            </section>
+            
+            <section class="scroll-section" id="section5">
+                <div class="scroll-text">
+                    <h2><em>Future Directions</em></h2>
+                    <h3>While our work has successfully improved polystyrene adhesion of CsgA, there are several avenues of work which need to be conducted in order to further this technology</h3>
+                    <p>A future avenue of our project is combining the significant mutations that we have identified to further increase adhesion. Additionally, our work exclusively focused on adhesion to polystyrene. Further work is required to determine whether the mutations identified in our work applies to increased adhesion to other types of plastic. <br>While our work on Ag43 was unsuccessful, we have identified several sites which could be potential mutation targets to improve plastic adherence via various computational methods.</p>
+                </div>
+                <div class="scroll-image">
+                    <img src="/2024_Edinburgh/docs/img/futuredirections.png" alt="Future Directions Visualization">
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="end-section">
+        <div class="location-container">
+            <h2 class="map-header">Our Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.3080769841813!2d-3.177915484069889!3d55.92155432744188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c7619777d9b7%3A0xfc241ebbe5c7a678!2sPeter%20Wilson%20Building%2C%20W%20Mains%20Rd%2C%20Edinburgh%20EH9%203JG%2C%20UK!5e0!3m2!1sen!2sus!4v1692648542208!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="supporters-container">
+            <h2 class="supporters-header">Our Supporters</h2>
+            <img src="/2024_Edinburgh/docs/img/Oursupporters-removebg-preview.png" alt="Our Supporters" class="funders-image">
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const scrollContent = document.querySelector('.scroll-content');
+            const sections = document.querySelectorAll('.scroll-section');
+            let currentSection = 0;
+            let isScrolling = false;
+
+            const animationClasses = [
+                ['animate-slide-left', 'animate-slide-right'],
+                ['animate-fade', 'animate-scale'],
+                ['animate-rotate', 'animate-fade'],
+                ['animate-scale', 'animate-slide-right'],
+                ['animate-slide-left', 'animate-rotate']
+            ];
+
+            function updateSections() {
+                sections.forEach((section, index) => {
+                    section.style.transform = `translateY(${(index - currentSection) * 100}%)`;
+                    const textContent = section.querySelector('.scroll-text');
+                    const imageContent = section.querySelector('.scroll-image');
+                    
+                    if (index === currentSection) {
+                        textContent.classList.add(animationClasses[index % animationClasses.length][0]);
+                        imageContent.classList.add(animationClasses[index % animationClasses.length][1]);
+                    } else {
+                        textContent.classList.remove(animationClasses[index % animationClasses.length][0]);
+                        imageContent.classList.remove(animationClasses[index % animationClasses.length][1]);
+                    }
+                });
+            }
+
+            function handleScroll(event) {
+                if (isScrolling) return;
+                isScrolling = true;
+                
+                if (event.deltaY > 0 && currentSection < sections.length - 1) {
+                    currentSection++;
+                } else if (event.deltaY < 0 && currentSection > 0) {
+                    currentSection--;
+                }
+                
+                updateSections();
+                
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 500); // Matches the transition time in CSS
+            }
+
+            window.addEventListener('wheel', handleScroll);
+            window.addEventListener('resize', updateSections);
+            
+            // Initial setup
+            updateSections();
+        });
+    </script>
+</body>
+</html>

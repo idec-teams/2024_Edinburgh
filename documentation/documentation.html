@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>IDEC Wiki</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <link rel="stylesheet" href="/2024_Edinburgh/css/style.css">
+    <style>
+        #root {
+            width: 90%;
+            max-width: 50rem;
+            margin: 1.25rem auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            #root {
+                width: 95%;
+                padding: 0.938rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo-placeholder">
+        <img src= "/2024_Edinburgh/docs/img/logo.png">
+        </div>
+        <div class="nav-links">
+            <a href="/2024_Edinburgh/index.html">Home</a>
+            <div class="dropdown">
+                <span>Project</span>
+                <div class="dropdown-content">
+                    <a href="/2024_Edinburgh/docs/project/Description-project.html">Description</a>
+                    <a href="/2024_Edinburgh/docs/project/Results-project.html">Results</a>
+                    <a href="/2024_Edinburgh/docs/project/Workflow-project.html">Workflow</a>
+                    <a href="/2024_Edinburgh/docs/project/Supplementary.html">Methods</a>
+                </div>
+            </div>
+            <a href="/2024_Edinburgh/docs/Team/teampage.html">Team</a>
+            <a href="/2024_Edinburgh/docs/documentation/documentation.html">Documentation</a>
+            <a href="/2024_Edinburgh/docs/humanpractices/humanpractices.html">Human practices</a>
+        </div>
+    </nav>
+    <div id="root"></div>
+    <script type="text/babel">
+        const months = ['July', 'August', 'September'];
+
+        const initialLabData = {
+             July: [
+    {
+        text: "Week 1: introduction to project <br><br>tasks:<br>- had initial meeting with Project supervisor (Dr. Sadler) to discuss the project <br>- Identified and read releavent literature on both Ag43 and Curli <br>-team meeting to disscuss intial ideas for mutation sites and goals <br>-Started looking at the main site-directed mutagenesis protocol we intend to use: Fast and Flexible Synthesis of Combinatorial Libraries for Directed Evolution <br> - Filled out the Responsible Research form in time for the iDEC deadline  <br><br> intial reading: <br>-'The antigen 43 structure reveals a molecular Velcro-like mechanism of autotransporter-mediated bacterial clumping' <br>-'Adhesion mechanisms of curli subunit CsgA to abiotic surfaces'<br>-'Fast and Flexible Synthesis of Combinatorial Libraries for Directed Evolution' <br><br>initial reading:<br>-'The antigen 43 structure reveals a molecular Velcro-like mechanism of autotransporter-mediated bacterial clumping' <br>-'Adhesion mechanisms of curli subunit CsgA to abiotic surfaces<br>-'Fast and Flexible Synthesis of Combinatorial Libraries for Directed Evolution<br><br>Making up M63 media <br>   -	1xM63 media (100mL)<br>   -	20mL 5x M63 (pH=7, autoclaved)<br>   -	5g (NH4)SO4; 34g KH2PO4 in 500mL<br>   -	200μL 0.5M MgSO4 <br>   -	1mL 20% glucose <br>   -	4mL 425 mM sodium succinate <br>   -	5μL 10 mg/mL FeSO4 7H2O<br>   -	1mL 10% casamino acids <br><br> We later discovered this was done incorrectly as cells could not grow in this media <br><br>semi-rational design for CsgA and Ag43 mutations: <br>-	We identified the cleavage site and hydrophilic residues in Ag43 <br>-	For CsgA we focused on all residues that we knew weren’t involved in stability <br> -	Started primer design for our site-directed mutagenesis <br><br>performed our Biofilm and Crystal violet protocol on a 96 well plate for the first time using wild type cells <br> -We failed to get biofilm formation because cells could not grow in our M63 media",
+        images: []
+    },
+    {
+        text: "Week 2: <br>Collected initial data<br><br>Results:<br>- Growth rate: 0.5 μm/hour<br>- Viability: 95%<br><br>Prepared stock solutions used for making competent cells:<br>- 0.1M MgCl<sub>2</sub> and CaCl<sub>2</sub>/glycerol solution (1.7mL 0.1M CaCl<sub>2</sub>, 0.3mL 100% glycerol)<br><br>Prepared competent cells as according to protocol",
+        images: []
+    },
+    {
+        text: "Week 3: We recieved approval to work on genetically modified organisms <br>Ordered first set of primer for the Ag43 cleavage site library and error-prone PCR<br><br>Biofilm protocol test with all three strains (induced/non-induced) with 96 and 24 well plates<br>- This failed, and we realised after incubating cells with M63 alone that our M63 media was not working<br>- Remade M63 media correctly, and this time filter sterilised all components before mixing<br><br>Made extract and buffer for Seamless Ligation Cloning Extract (SLiCE) cloning method<br><br>Miniprep the two plasmids and performed digestion for verification<br><br>Amplified gene and vector for Ag43 and CsgA through PCR<br>- Attempt 1 results: Both genes worked but no CsgA vector product and secondary bands found in Ag43 vector<br>- Attempt 2 results: Tried using primer Ag43_V at higher annealing temperatures and just CsgA_V again. Ag43_V at 70ºc worked well but CsgA had secondary bands - this is because our two primers for this had a higher T<sub>m</sub> difference than 5ºc so primers reordered<br><br>Tested SLiCE extract + buffer by transforming Top10 cells then miniprep<br>- Failed<br><br>Started discussing error-prone PCR protocol",
+        images: ["/2024_Edinburgh/docs/img/AmplificationofAg43CsgA.png", "/2024_Edinburgh/docs/img/CsgAVector.png"]
+    },
+    {
+        text: "Week 4: <br>Remade competent cells as previous batch were not competent<br>Redid Ag43 amplification to get a higher concentration. Redid with a higher extension time<br>Performed Gibson and SLiCE on both genes: Gibson worked for both genes while SLiCE worked CsgA but not Ag43<br><br><strong> Testing <a href=\"https://currentprotocols.onlinelibrary.wiley.com/doi/10.1002/0471142727.mb0803s51\">epPCR protocol</a> for Ag43</strong><br><br>PCR mixture prepared according to protocol<br>Results: no visible bands produced by Ag43 primers, CsgA primers produced were extremely faint at the correct band size that smeared with primers at the bottom of the gel<br><br>Total epPCR mixture volumes for protocol troubleshooting reduced from 100µL to 25µL<br><br>Controls to test:<br>- Taq polymerase: Run standard PCR using Taq polymerase to test for Taq polymerase stability<br>- Lower temperatures: Reducing annealing temperatures down to 55ºc by intervals of 2ºc from 67ºc<br>- MnCl<sub>2</sub> addition times: Adding at the same time as other components against adding immediately before thermocycling begins<br>- Primers: Running standard PCR using confirmed fully functional Q5 polymerase<br>- Template DNA concentration: Reducing plasmid concentration in mixture<br><br>Results for controls:<br>- Taq polymerase: Taq polymerase fully functional under manufacturer's instructions<br>- Lower temperatures: epPCR under annealing temperatures of 65ºc, 63ºc, 61ºc, 59ºc, 57ºc, 55ºc did not produce any visible bands for Ag43<br>- MnCl<sub>2</sub> addition times: No bands produced regardless of addition time<br>- Primers: Standard PCR with Q5 produced clear distinct bands at correct gene product sizes<br>- Template DNA concentration: Plasmid concentration on protocol worked on other standard PCR protocols, produced clear distinct bands when products are run on gels",
+        images: []
+    }
+],            
+
+             
+            August: [
+                {
+                    text: "Week 1:<br><br>Confirmed cloning of CsgA SLiCE and both Gibson were correct using colony PCR<br><br>Started Asymmetric PCR to make megaprimers for the Ag43 cleavage site<br>- Asymmetric PCR attempt 1 with Q5: No products generated<br>- Attempt 2 with Q5 and low fidelity Taq polymerase: Q5 failed, Taq worked<br>   - Purified Taq megaprimers but little product recovered as wrong kit was used<br>- Attempt 3 with Taq: Multiple bands produced thus performed gel extraction but were lost again due to wrong kit being used<br>- Attempt 4 with GeneOrator and Dr. Sadler's protocol with Q5 as we concluded high fidelity is crucial: failed<br><br>Re-plated the 6 control plates:<br>- E. coli:MG1655<br>- E. coli:MG1655 pBAD-Curli<br>- E. coli:MG1655 pBAD-Ag43<br>- E. coli:MG1655 ΔCsgA ΔAg43<br>- E. coli:MG1655 ΔCsgA ΔAg43 pBAD-Curli<br>- E. coli:MG1655 ΔCsgA ΔAg43 pBAD-Ag43<br><br><strong>Continued finalising epPCR protocol details for Ag43</strong><br><br>MgCl<sub>2</sub> final concentrations:<br>- 5mM<br>- 3mM<br>- 1mM<br><br>MnCl<sub>2</sub> final concentrations:<br>- 0.25mM<br>- 0.1mM<br>- 0.075mM<br>- 0.05mM<br>- 0.025mM<br>- 0.01mM<br><br>Results from gel electrophoresis of epPCR products:<br>- All concentrations for MgCl<sub>2</sub> produced distinct bands at 1.5kb range with no smearing<br>- No bands produced for MnCl<sub>2</sub> at 0.25mM<br>- Very faint band at 1.5kb range with no smears produced by 0.1mM MnCl<sub>2</sub><br>- MnCl<sub>2</sub> at concentrations 0.075mM, 0.05mM, 0.025mM, and 0.01mM produced distinct bands with no smearing",
+                    images: ["/2024_Edinburgh/docs/img/MegaprimerTaq.png"]
+                },
+                {
+                    text: "Week 2:<br><br>Started using Phusion polymerase as per Dr. Sadler's recommendation, completed a symmetric control under different temperatures (56, 58, 60, 62, 64) and with/without DMSO<br><br>Ran Inverse PCR for Ag43 cleavage sites at different temperatures<br><br>Also decided to look into doing megaprimers with different ratios of forward to reverse primer, normal ratio with more cycles up to 65, and also trying asymmetric PCR with the symmetric control products only using reverse primer<br>- Inverse and asymmetric with symmetric template didn't work<br>- Different ratios seemed like it could have worked<br>- Our supervisor advised with the possiblity of asymmetric PCR not working due to the size of megaprimers thus decided to order primers for CsgA instead as the gene was smaller<br><br><strong>Final epPCR protocol testing for CsgA</strong><br><br>MgCl<sub>2</sub> final concentration: 5mM<br>MnCl<sub>2</sub> final concentration: 0.075mM<br><br>Results from gel electrophoresis of epPCR products:<br>- Distinct but smeared band produced for MgCl<sub>2</sub> only epPCR reaction<br>- Distinct and unsmeared bands produced for MnCl<sub>2</sub> only epPCR reaction and reaction with both MnCl<sub>2</sub> and MgCl<sub>2</sub><br>- All bands were at the correct band size of approximately 500bp<br><br>epPCR succeeded for both Ag43 and CsgA, but due to time constraints we have decided to focus on using epPCR only on CsgA<br>Sent samples of epPCR products for CsgA to Edinburgh Genome Foundry to be passed to Dundee Sequencing and Services to be sequenced using Sanger method, to detect presence of any mutations and possibly determine this method's mutation rate<br><br>Ran through biofilm protocol on Plate 0001: Mon 5th to Wed 7th<br>- Plate had wells containing cells from 6 different plates:<br>   - E. coli:MG1655 in columns 1, 2<br>   - E. coli:MG1655 pBAD-Curli in columns 3, 4<br>   - E. coli:MG1655 pBAD-Ag43 in columns 5, 6<br>   - E. coli:MG1655 ΔCsgA ΔAg43 in columns7, 8<br>   - E. coli:MG1655 ΔCsgA ΔAg43 pBAD-Curli in columns 9, 10<br>   - E. coli:MG1655 ΔCsgA ΔAg43 pBAD-Ag43 in columns 11, 12<br>   - Well A1 was left empty to blank the plate reader<br>- Each well (excluding A1) was filled with 200µL of LB or (or LB + ampicillin in samples with a resistance plasmid - these are columns 3, 4, 5, 6, 9, 10, 11, 12)<br>- This plate was left in the shaker at 37ºc 220RPM overnight<br>- The plate was then taken out of the incubator Tuesday morning and cell OD was measured using a plate reader (using A1 as a blank)<br>- A second plate was then set up - this plate contained 198 uL of M63 media in each well (or 198 uL of M63 + Amp in the samples with a resistance plasmid - columns 3,4,5,6,9,10,11,and 12)<br>- We then transfer 2 uL of solution from the overnight plate into the new plate - making sure that the wells are transferred correctly e.g. Solution from well B2 in the first plate is transferred to B2 in the second plate<br>- Well A1 does not get any solution transferred - instead it is filled with 200 µL of M63 solution (blank)<br>- The second plate is then placed in a plate reader to measure the initial OD (600nm) of the wells in the second plate<br>- The second plate is then put in a shaking incubator at 37 degrees 220 RPM for 30 minutes (Day culture)<br>- The plate was then placed in a plate reader to read the OD (600nm) of the wells after the day culture<br>- After the Day culture 2 µL of arabinose was added to every even column in the plate - this is to induce the activity of Ag43 and CsgA on the pBAD plasmid<br>- This plate was then placed in a shaking incubator at 30 degrees 230 RPM for 18 hours<br>- The plate was then taken out of the 18 hour incubation and the solution from each of the wells was transferred into a third plate - this third plate was then placed in a plate reader where the OD (600nm) of each well was measured (the solution from A1 was not transferred and 200 µL of M63 was added to A1 as a blank)<br>- In  the second plate each well was washed 3 times to remove any cells not in a biofilm - these were then stained using 30 µL of crystal violet<br>- The plate was left with crystal violet for staining for 30 minutes before the excess Crystal violet was removed and each well was washed 3 times again to remove any excess crystal violet from the wells<br>- The stained biofilms were then resuspended in 30 µL of 30% acetic acid<br>- After leaving the acetic acid for 10 minutes place the plate in a plate reader and measure the OD (550nm) of each well (Well A1 also has 30 µL of 30% acetic acid as a blank)<br>- For plate 0001 we saw no difference between the induced and non-induced CsgA and Ag43 - these results indicate that there was something wrong with the protocol<br><br>Ran through the biofilm protocol on Plate 0002: Tue 6th to Thurs 8th<br>- Plate 0002 was a replicate of plate 0001<br>- Each well of plate 0002 had 198 µL of LB (Or LB + Amp if if the cells contain a resistance plasmid)<br>- 2 µL of culture was taken from the overnight plate 0001 and transferred to the corresponding well in plate 0002<br>- Plate 0002 was then place in an overnight culture 37ºc 220 RPM<br>- The overnight culture of plate 0002 was taken out on wednesday morning and placed in a plate reader to measure the OD (at 600nm) of the plate<br>- We then transfer 2 µL of solution from the overnight plate into the new plate - making sure that the wells are transferred correctly e.g. Solution from well B2 in the first plate is transferred to B2 in the second plate<br>   - Well A1 does not get any solution transferred - instead it is filled with 200 uL of M63 solution (blank)<br>- The second plate is then placed in a plate reader to measure the initial OD (600nm) of the wells in the second plate<br>- The second plate is then put in a shaking incubator at 37ºc 220 RPM for 30 minutes (Day culture)<br>- The plate was then placed in a plate reader to read the OD (600nm) of the wells after the day culture<br>- After the Day culture 2 µL of arabinose was added to every even column in the plate - this is to induce the activity of Ag43 and CsgA on the pBAD plasmid<br>   - This plate was then placed in a shaking incubator at 30ºc 230 RPM for 18 hours<br>- The plate was then taken out of the 18 hour incubation and the solution from each of the wells was transferred into a third plate - this third plate was then placed in a plate reader where the OD (600nm) of each well was measured (the solution from A1 was not transferred and 200 uL of M63 was added to A1 as a blank)<br>- In  the second plate each well was washed 3 times to remove any cells not in a biofilm - these were then stained using 30 uL of crystal violet<br>- The plate was left with crystal violet for staining for 30 minutes before the excess Crystal violet was removed and each well was washed 3 times again to remove any excess crystal violet from the wells<br>- The stained biofilms were then resuspended in 50 uL of 30% acetic acid (changed to 50 µL to make sure that the entire wells surface was covered in acetic acid)<br>- After leaving the acetic acid for 10 minutes place the plate in a plate reader and measure the OD (550nm) of each well (Well A1 also has 50 µL of 30% acetic acid as a blank)<br>- For plate 0002 we saw no difference between the induced and non-induced CsgA and Ag43 for most of the plates - however there was a barely significant value between the non-induced and induced KO CsgA cells - the error bars for this experiment are still massive so this data was not the best",
+                    images: ["/2024_Edinburgh/docs/img/phusionenzyme.png","/2024_Edinburgh/docs/img/CsgAError.png"]
+                },
+                {
+                    text: "Week 3:<br><br>Conducted interviews for human practices<br><br>Reran all the PCRs from week 2 but nothing worked so idea of using different ratios was abandoned<br><br>Redid asymmetric PCR with Phusion and Q5 under the exact conditions from the Fast and Flexible protocol as a last attempt<br>- This didn't work<br><br>Made a batch of competent double-knockout cells<br><br>Retried asymmetric PCR with CsgA which worked this time using Q5 under 60ºc<br>- Tried symmetric full-length with this according to protocol but failed<br>- Dr. Sadler advised not to dilute down megaprimer products, but put everything into the symmetric PCR reaction<br>Confirmed the idea that Ag43 PCRs didn't work because the gene was too long, shifted focus to only creating cleavage site libraries<br>   - Use SDM and ep-PCR for CsgA<br><br>Met with the Edinburgh Genome Foundry who agreed to perform our biofilm assay for us and Sanger Sequencing for our epPCR library<br>Remade 10% arabinose solution as original solution has formed 2 distinct layers and arabinose was not actually getting into the plates to induce the wells: this was made up by adding 0.5g of arabinose powder to 5mL water<br><br>Ran through biofilm protocol on Plate 0003: Mon 12th to Wed 14th<br>- This plate only used 3 double KO cell types:<br>   - E. coli:MG1655 ΔCsgA ΔAg43 in columns 1,4,7, and 10<br>   - E.coli:MG1655 ΔCsgA ΔAg43 pBAD-Curli in columns 2,5,8,and 11<br>   - E.coli:MG1655 ΔCsgA ΔAg43 pBAD-Ag43 - columns 3,6,9, and 12<br>- These were split into four groups on the plate<br>   - Columns 1,2, and 3 were induced with the normal amount of arabinose (2 uL) and at the normal time (After the day culture)<br>   - Columns 4,5, and 6 were induced with the normal amount of arabinose but they were induced before the day culture<br>   - Columns 7,8, and 9 were induced with 5 uL of arabinose at the normal time<br>   - Columns 10,11, and 12 were induced with 5 uL of arabinose before the day culture<br>- As a control only the top half of the plate was induced (rows A,B,C, and D) while the bottom half of the plate was non-induced (rows E,F,G, and H)<br>- Each well (Excluding A1) was filled with 200 µL of LB (or LB + Ampicillin in the samples with a resistance plasmid)<br>- This plate was then left in a shaking incubator at 37ºc 220 RPM overnight<br>- The plate was then taken out of the incubator Tuesday morning and cell OD was measured using a plate reader (using A1 as a blank)<br>- A second plate was then set up - this plate contained 198 µL of M63 media in each well (or 198 µL of M63 + Amp in the samples with a resistance plasmid)<br>- We then transfer 2 µL of solution from the overnight plate into the new plate - making sure that the wells are transferred correctly e.g. Solution from well B2 in the first plate is transferred to B2 in the second plate<br>- Well A1 does not get any solution transferred - instead it is filled with 200 µL of M63 solution (blank)<br>- The second plate is then placed in a plate reader to measure the initial OD (600nm) of the wells in the second plate<br>- After this 2 µL of arabinose is added to columns 4,5, and 6 and 5 µL of arabinose is added to columns 10,11, and 12<br>- The second plate is then put in a shaking incubator at 37ºc 220 RPM for 30 minutes (Day culture)<br>- After the day culture 2 µL of arabinose is added to columns 1,2, and 3 and 5 µL of arabinose is added to columns 7, 8, and 9<br>- The plate was then placed in a plate reader to read the OD (600nm) of the wells after the day culture<br>- This plate was then placed in a shaking incubator at 30ºc 230 RPM for 18 hours<br>- The plate was then taken out of the 18 hour incubation and the solution from each of the wells was transferred into a third plate - this third plate was then placed in a plate reader where the OD (600nm) of each well was measured (the solution from A1 was not transferred and 200 uL of M63 was added to A1 as a blank)<br>- In  the second plate each well was washed 3 times to remove any cells not in a biofilm - these were then stained using 30 µL of crystal violet<br>- The plate was left with crystal violet for staining for 30 minutes before the excess Crystal violet was removed and each well was washed 3 times again to remove any excess crystal violet from the wells<br>- The stained biofilms were the resuspended in 50µL of 30% acetic acid<br>- After leaving the acetic acid for 10 minutes place the plate in a plate reader and measure the OD (550nm) of each well (Well A1 also has 50 µL of 30% acetic acid as a blank)<br>- From this experiment we saw the largest growth in CsgA when it was induced with 5 uL of arabinose after the day culture - so this is what we continue on using",
+                  images: ["/2024_Edinburgh/docs/img/CsgA symmetric PCR.jpg"]
+                },
+                {
+                    text: "Week 4: <br><br>Redid full-length symmetric PCR with CsgA under Dr. Sadler's advice and worked<br>- Gel extracted product<br>- Used the product for Gibson and SLiCE but neither worked due to incorrect calculations for Gibson while SLiCE simply failed<br>- Repeated Gibson: only 8 colonies of which we transformed into double knockout strain worked<br>- Due to low efficiency of transformation, repeated Gibson and transformation of CsgA with commercial cells, and no colonies produced (as we thought our cells weren't competent enough<br>- Tested the strength of ampicillin (0, 50, 100 ng/mL) for transformation with Curli plasmid on our top 10 cells and commercial top 10 cells and left on the bench over the weekend → only got a gew colonies for each plate → allowed to grow at 37ºc overnight → got many colonies<br>- Tested the length of the heat shock (30s, 40s, 50s) and the amount of cells (100µL, 200µL) → all got many colonies<br><br><strong>Continued testing for inverse PCR protocol</strong><br><br>Conditions tested:<br>- Temperature<br>- DMSO added or not<br><br>Temperatures tested:<br>- 70ºc<br>- 72ºc<br>- 74ºc<br>- 64ºc<br>- 66ºc<br>- 68ºc<br><br>Results from gel electrophoresis of inverse PCR products:<br>- Without adding DMSO at temperatures 70ºc to 74ºc: Only bands produced are at the bottom of the gel, likely primers, therefore inverse PCR failed<br>- Without adding DMSO at temperatures 68ºc: Smears with no distinct bands produced, therefore control failed<br>- DMSO added for all temperatures: produced large smears that span nearly the entire length of the ladder, therefore inverse PCR failed<br><br>Inverse PCR protocol conclusion: all tests at different temperatures within the appropriate range failed, therefore these primers will be abandoned in favour of new primers<br><br>Ran through the biofilm protocol on Plate 0004: Mon 19th to Wed 21st<br>- Plate 0004 is running the same experiment as plate 0003 - however this time the plate has been randomised using iMetaLab 96 well plate randomizer<br>- The results from this plate also show that the CsgA when induced with 5 µL of arabinose show generally higher growth then the plates induced with 2 µL of arabinose - however this plate shows no difference between inducing before or after the day culture<br>- The error bars for this plate are very large - so it is not entirely certain if these are actual results<br><br>The genome foundry ran their first test of the Biofilm Assay: Wed 21st to Fri 23rd<br>- For this assay they ran two of the three KO cell types:<br>   - E.coli:MG1655 ΔCsgA ΔAg43 pBAD-Curli in columns 1-6<br>   - E.coli:MG1655 ΔCsgA ΔAg43 pBAD-Ag43 in columns 7-12<br>- Rows A,B,C, and D were induced with 5 uL of arabinose and rows E,F,G, and H were non-induced<br>- They ran through the assay using the same protocol as the previous plates run manually<br>- The results from this assay were what was expected: Induced CsgA showed much more biofilm formation than non-induced CsgA<br>- Induced Ag43 showed no significant changes in growth compared to non-induced Ag43",
+                  images: ["/2024_Edinburgh/docs/img/InversePCR.jpg"]
+                },
+                {
+                    text: "Week 5: <br><br>Ran through the biofilm protocol on Plate 0005: Mon 26th to Wed 28th<br>- This plate used only the three KO cell types:<br>   - E.coli:MG1655 ΔCsgA ΔAg43 in columns 1 and 4<br>   - E.coli:MG1655 ΔCsgA ΔAg43 pBAD-Curli in columns 2 and 5<br>   - E.coli:MG1655 ΔCsgA ΔAg43 pBAD-Ag43 in columns 3 and 6<br>- Plate 0005 was also randomised using iMetaLab 96 well plate randomizer<br>- Plate 0005 was split into two sub plates: Plate 0005 (30) and Plate 0005 (2.5)<br>- The first 6 columns of the plate were filled with LB (or LB + Amp in the samples with a resistance plasmid) - one well is left empty so that the plate reader can be blanked (not well A1 as the plate has been randomised)<br>- This plate was then left in a shaking incubator at 37 degrees 220 RPM overnight<br>- A second half of each plate was then set up (columns 7-12) - these columns contained 198 uL of M63 media in each well (or 198 µL of M63 + Amp in the samples with a resistance plasmid)<br>- We then transfer 2 µL of solution from the first half of the plate into the second half - making sure that the wells are transferred correctly e.g. Solution from well B2 in the first half is transferred to B8 in the second Half (solution from the blank well is not transferred into the second half)<br>- The two plates are then put in a shaking incubator at 37ºc 220 RPM - plate 0005 (30) for 30 minutes and plate 0005 (2.5) for 2.5 hours<br>- After the day culture 5 µL of arabinose is added to columns 4,5, and 6 (wherever their location is in the randomised plate)<br>- The plates were then placed in a plate reader to read the OD (600nm) of the wells after the day culture<br>- This plates were then placed in a shaking incubator at 30ºc 230 RPM for 18 hours<br>- The plates were then taken out of the 18 hour incubation and the solution from each of the wells was transferred into a third plate (the solution for the first half of the plate coming from plate 0005 (30) and the solution for the second half of the plate coming from plate 0005 (2.5)) - this third plate was then placed in a plate reader where the OD (600nm) of each well was measured (solution from the blanks were not transferred and 200 uL of M63 is added to those wells as a blank)<br>- In both the 0005 (30) and 0005 (2.5) plates each well was washed 3 times to remove any cells not in a biofilm - these were then stained using 30 µL of crystal violet<br>- The plates were left with crystal violet for staining for 30 minutes before the excess Crystal violet was removed and each well was washed 3 times again to remove any excess crystal violet from the wells<br>- The stained biofilms were then resuspended in 50 µL of 30% acetic acid<br>- After leaving the acetic acid for 10 minutes the plates were placed in a plate reader and measure the OD (550nm) of each well (Well A1 also has 50 µL of 30% acetic acid as a blank)<br>- The results from plate 0005 show no difference between the 2.5 hour day culture and the 0.5 hour day culture - so the protocol will continue using the 0.5 hour day culture<br><br>The genome foundry ran through their second test of the Biofilm assay: Wed 28th to Fri 30th<br>- This assay had the exact same layout and properties as the previous test assay run by the genome foundry<br>- The only difference is that they made small changes to the protocol to better suit the machinery used <br>- The results from this assay were almost identical to the previous results they gave us",
+
+                  images: []
+                },
+            ],
+            September: [
+                {
+                    text: "Week 1:<br><br>Ag43:<br>- Picked around 60 colonies from Top10 culture and minipreped all together for D551 → transformed into oduble knockout → no colonies formed<br>- Attempt 1 for P552 QuickChange protocol: no bands<br>- Attempt 2 for P552 QuickChange protocol: no bands<br><br>CsgA:<br>- Ran gel for full length of primers 2 and 3 with DMSO added at asymmetric PCR: failed, very faint bands at 500bp<br>- Asymmetric PCR for primers 0, 2, 3, 4, 5, 6 again: success, single band around 300bp<br>- Full-length PCR with 3% DMSO: primary band at 500bp<br>- PCR purified then digested with Dpn1, then Gibson ligated into plasmid and transformed into Top10 cells: 1/4 spread on plate, 3/4 placed in liquid culture<br>   - Only a few colonies on the plate<br>   - Grew in liquid culture for mutants 3, 4, 5, 6<br>   - Nothing grew in liquid culture for mutants 0, 2. We suspect gibson reaction might not have worked and all the growth in the liquid culture may be from a single colony<br>-Decided to miniprep and transform mutant plasmids 3, 4, 5, 6 into double knockouts anyways → about 30 colonies formed on each plate<br>- Redid Gibson ligation for mutant genes 0, 2, and transformed into Top10 cells → only mutant 2 showed growth<br><br>Error-prone PCR on CsgA:<br>- Ran CsgA error-prone PCR products on gel after Dpn1 digest: No bands formed<br>After much deliberation, we have decided to temporarily halt experiments on error-prone PCR",
+                    images: []
+                },
+                {
+                    text: "Week 2:<br><br>Made megaprimers using primers 1, 7-26 using asymmetric PCR protocol<br>- Primers 10, and 23 failed to produce megaprimers, the rest produced faint bands at the right sizes<br><br>Ran symmetric PCR to produce full length products out of megaprimers<br>- Megaprimers 8 and 17 failed to produce full length products, while the rest produced full length products<br><br>Remade megaprimers using primers 8, 10, 17, 23<br>- Primers 10 and 23 failed to produce megaprimers once more<br>- Megaprimers 8 and 17 successfully made full length products<br><br>Scraped all colonies from plates of transformed C2987 cells<br>- Added LB then scraped off the cells and overnight liquid cultured to ensure growth in liquid culture is not just from 1 single cell<br><br> Re-did transformations for mutants 0,2,3,4,5,6 into C2987 cells instead of Top10. Miniprepped C2987 cells made from mutants 0, 2, 3, 4, 5, 6 and transformed into double KO cells<br>- All plates showed growth and lots of colonies → ready to be sent for screening",
+                
+                  images: ["/2024_Edinburgh/docs/img/CsgAmegaprimers.png"]
+                },
+                {
+                    text: "Week 3:<br><br>Purified full length products 1, 7-26 except for 10 and 23 which failed last week<br>- Each produced distinct bands at the right size of ~500bp<br>- Purity ranged from 39ng/µL to over 164ng/µL<br><br>Full length products were ligated into vectors using Gibson Assembly<br><br>Assembled vectors were transformed into C2987 cells and incubated overnight at 37ºc<br>- All plates showed lots of growth and colonies except for plates 16 and 25, where only ~8 colonies of sufficient size grew on each plate<br>- Plates 16 and 25 were allowed to grow for another 24 hours<br><br>All colonies of transformed C2987 cells were scraped off (mutants 1, 7-26 except for 10, 16, 23, 25). We decided to plate the entire batch of cells instead of inoculating 3/4 in LB, to ensure we have growth of multiple colonies instead of just 1. <br>- Added LB then scraped off the cells and overnight liquid cultured to ensure growth in liquid culture is not just from 1 single cell<br><br>Miniprepped C2987 cells and transformed into double KO cells<br>- All plates showed growth and lots of colonies except for plate 24 that was empty → the rest ready to be sent for screening<br><br>All colonies of transformed C2987 mutant cells 16 and 25 were scraped off<br>- Added LB then scraped off the cells and overnight liquid cultured to ensure growth in liquid culture is not just from 1 single cell<br><br>Miniprepped C2987 mutant cells 16 and 25",
+                
+                  images: ["/2024_Edinburgh/docs/img/FL126.png"]
+                },
+                {
+                    text: "Week 4:<br><br>First half of plates sent for screening by Edinburgh Genome Foundry<br><br>Took miniprepped DNA from mutants 16, 25, P551 and transformed into double KO cells<br>- Plates 16 and 25 grew lots of cells, while P551 grew nothing → mutants 16 and 25 ready to be sent for screening<br><br>Received biofilm growth data from Edinburgh Genome foundry for the first batch of mutants we sent them. We had to send our plates for assay in a staggered manner to not overwhelm them:<br>- Wells that produced the most and least amount of biofilms were noted down and allowed to grow overnight in liquid culture<br>- Overnight cultures miniprepped and plasmids sent to Edinburgh Genome Foundry for Oxford Nanopore sequencing",
+                
+                  images: []
+                },
+            ],
+        };
+
+    const CoverPage = ({ onEnter }) => (
+    <div 
+        style={{
+            width: '800px',
+            maxWidth: '100%',
+            height: '1131px', // Approximately A4 aspect ratio (800 * 1.4142)
+            margin: '0 auto',
+            backgroundColor: '#191970',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+            fontFamily: 'Times New Roman, serif',
+            fontSize: '2rem',
+            textAlign: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+            position: 'relative',
+            overflow: 'hidden'
+        }}
+        onClick={onEnter}
+    >
+        <div style={{
+            position: 'absolute',
+            top: '20px',
+            left: '20px',
+            right: '20px',
+            bottom: '20px',
+            border: '2px solid rgba(255,255,255,0.3)',
+            pointerEvents: 'none'
+        }}></div>
+        <h1 style={{ fontSize: '3rem', marginBottom: '40rem' }}>IDEC Edinburgh Lab Notebook</h1>
+        <p style={{ fontSize: '1.2rem', marginTop: '5rem' }}>Click to open</p>
+        <div style={{
+            position: 'absolute',
+            bottom: '40px',
+            fontSize: '1rem',
+            opacity: 0.7
+        }}>
+            2024
+        </div>
+    </div>
+);
+
+    const SimpleLabNotebook = () => {
+        const [showCover, setShowCover] = React.useState(true);
+        const [currentMonth, setCurrentMonth] = React.useState('July');
+        const [currentPage, setCurrentPage] = React.useState(0);
+        const [notebookContent, setNotebookContent] = React.useState(initialLabData);
+
+        const handleContentChange = (event) => {
+            const newContent = event.target.innerHTML;
+            setNotebookContent(prevContent => ({
+                ...prevContent,
+                [currentMonth]: prevContent[currentMonth].map((content, index) => 
+                    index === currentPage ? { ...content, text: newContent } : content
+                )
+            }));
+        };
+
+        const nextPage = () => {
+            if (currentPage < notebookContent[currentMonth].length - 1) {
+                setCurrentPage(currentPage + 1);
+            } else {
+                const nextMonthIndex = months.indexOf(currentMonth) + 1;
+                if (nextMonthIndex < months.length) {
+                    setCurrentMonth(months[nextMonthIndex]);
+                    setCurrentPage(0);
+                }
+            }
+        };
+
+        const prevPage = () => {
+            if (currentPage > 0) {
+                setCurrentPage(currentPage - 1);
+            } else {
+                const prevMonthIndex = months.indexOf(currentMonth) - 1;
+                if (prevMonthIndex >= 0) {
+                    setCurrentMonth(months[prevMonthIndex]);
+                    setCurrentPage(notebookContent[months[prevMonthIndex]].length - 1);
+                }
+            }
+        };
+
+        if (showCover) {
+            return <CoverPage onEnter={() => setShowCover(false)} />;
+        }
+
+        return (
+            <div>
+                <h1 style={{marginBottom: '1rem'}}>Lab Notebook</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                    {months.map((month) => (
+                        <button
+                            key={month}
+                            onClick={() => { setCurrentMonth(month); setCurrentPage(0); }}
+                            style={{
+                                padding: '0.625rem',
+                                backgroundColor: month === currentMonth ? '#007bff' : '#f0f0f0',
+                                color: month === currentMonth ? 'white' : 'black',
+                                border: 'none',
+                                borderRadius: '5px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            {month}
+                        </button>
+                    ))}
+                </div>
+                <div style={{
+                    border: '3px solid black',
+                    borderRadius: '5px',
+                    padding: '1.25rem',
+                    background: 'linear-gradient(to bottom, transparent 23px, #191970 24px)',
+                    backgroundSize: '100% 24px',
+                    lineHeight: '24px',
+                    textAlign: 'left',
+                    fontFamily: 'Times New Roman, serif',
+                    fontSize: '1rem',
+                    position: 'relative',
+                    minHeight: '600px',
+                    width: '800px',
+                    maxWidth: '90%',
+                    margin: '0 auto',
+                }}>
+                    <h2 style={{ 
+                        marginTop: '0', 
+                        marginBottom: '24px', 
+                        background: 'white', 
+                        display: 'inline-block', 
+                        padding: '0 10px', 
+                        position: 'relative', 
+                        top: '-10px', 
+                        left: '-10px' 
+                    }}>
+                        {currentMonth}
+                    </h2>
+                    <div 
+                        contentEditable
+                        dangerouslySetInnerHTML={{ __html: notebookContent[currentMonth][currentPage].text }}
+                        onInput={handleContentChange}
+                        style={{ 
+                            margin: '0', 
+                            paddingBottom: '24px',
+                            minHeight: '300px',
+                            outline: 'none',
+                            whiteSpace: 'pre-wrap',
+                            wordBreak: 'break-word',
+                            overflowWrap: 'break-word',
+
+                        }}
+                    />
+                    <div style={{ marginTop: '1rem' }}>
+                        {notebookContent[currentMonth][currentPage].images.map((image, index) => (
+                            <img key={index} src={image} alt={`Lab image ${index + 1}`} style={{ maxWidth: '100%', height: 'auto', marginBottom: '1rem' }} />
+                        ))}
+                    </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1.25rem' }}>
+                    <button onClick={prevPage} disabled={currentMonth === 'July' && currentPage === 0}
+                        style={{  padding: '0.625rem', backgroundColor: '#ccc', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                        Previous Page
+                    </button>
+                    <span>Page {currentPage + 1}/{notebookContent[currentMonth].length}</span>
+                    <button onClick={nextPage} disabled={currentMonth === 'September' && currentPage === notebookContent['September'].length - 1}
+                        style={{ padding: '0.625rem', backgroundColor: '#ccc', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                        Next Page
+                    </button>
+                </div>
+            </div>
+        );
+    };
+
+    ReactDOM.render(<SimpleLabNotebook />, document.getElementById('root'));
+</script>
+        <footer class="end-section">
+        <div class="location-container">
+            <h2 class="map-header">Our Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.3080769841813!2d-3.177915484069889!3d55.92155432744188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c7619777d9b7%3A0xfc241ebbe5c7a678!2sPeter%20Wilson%20Building%2C%20W%20Mains%20Rd%2C%20Edinburgh%20EH9%203JG%2C%20UK!5e0!3m2!1sen!2sus!4v1692648542208!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="supporters-container">
+            <h2 class="supporters-header">Our Supporters</h2>
+            <img src="/2024_Edinburgh/docs/img/Oursupporters-removebg-preview.png" alt="Our Supporters" class="funders-image">
+        </div>
+    </footer>
+</body>
+</html>
+    
